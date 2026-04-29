@@ -1,473 +1,783 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Flower Profit Model: Solan and Pune/Mumbai</title>
+  <title>Flower Crop Profit Model | Solan vs Pune-Mumbai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f6f8f3;
+      --bg: #f4f8f3;
+      --bg-soft: #edf4ea;
       --card: #ffffff;
-      --ink: #1f2a1f;
-      --muted: #5f6e5f;
+      --ink: #1a2a1f;
+      --muted: #5c6e62;
       --accent: #2f7d4e;
-      --line: #d9e4d7;
+      --accent-soft: #e5f3e9;
+      --warm: #c4623f;
+      --line: #d3e1d4;
+      --shadow: 0 14px 34px rgba(38, 68, 46, 0.13);
+      --radius: 18px;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: "Georgia", "Times New Roman", serif;
       color: var(--ink);
-      background: var(--bg);
+      font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(1200px 600px at -10% -10%, #e4f1e5 0, transparent 52%),
+        radial-gradient(1000px 500px at 110% -20%, #f9efe7 0, transparent 50%),
+        var(--bg);
+      min-height: 100vh;
     }
-    .wrap {
-      max-width: 920px;
+    .layout {
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 28px 18px 48px;
+      padding: 26px 16px 56px;
     }
-    article {
-      background: var(--card);
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: calc(var(--radius) + 6px);
       border: 1px solid var(--line);
-      border-radius: 16px;
+      background: linear-gradient(140deg, #ffffff, #f8fcf8 55%, #f4f9f2);
+      box-shadow: var(--shadow);
       padding: 26px;
-      box-shadow: 0 8px 24px rgba(40, 70, 40, 0.06);
+      animation: rise 600ms ease both;
     }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    h1 { margin: 0 0 8px; font-size: 2rem; }
-    h2 { margin: 24px 0 10px; font-size: 1.35rem; }
-    h3 { margin: 0 0 10px; font-size: 1.1rem; }
-    .meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 20px; }
-    .back { margin-bottom: 14px; display: inline-block; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 12px;
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, #dff2e2, transparent 68%);
+      pointer-events: none;
     }
-    .crop {
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Playfair Display", Georgia, serif;
+      letter-spacing: 0.2px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+      margin-bottom: 8px;
+      padding-right: 90px;
+    }
+    .sub {
+      color: var(--muted);
+      margin-top: 0;
+      line-height: 1.7;
+      max-width: 760px;
+    }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .pill {
       border: 1px solid var(--line);
+      background: var(--accent-soft);
+      color: #17482b;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .summary {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+    }
+    .summary .cell {
       border-radius: 12px;
-      padding: 14px;
-      background: #fbfdfb;
-    }
-    ul {
-      margin: 0;
-      padding-left: 20px;
-      line-height: 1.6;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-      margin-top: 8px;
-    }
-    .gallery figure {
-      margin: 0;
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 8px;
-      background: #fff;
+      background: #ffffff;
+      padding: 12px 12px;
     }
-    .gallery img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
+    .summary .cell b {
       display: block;
-    }
-    .gallery figcaption {
       font-size: 0.85rem;
       color: var(--muted);
-      margin-top: 6px;
+      margin-bottom: 5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+    .summary .cell span {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #163423;
+    }
+    .controls {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tab {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      padding: 9px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 180ms ease;
+    }
+    .tab.active {
+      background: #1f6b43;
+      border-color: #1f6b43;
+      color: #fff;
+      box-shadow: 0 7px 18px rgba(31, 107, 67, 0.3);
+    }
+    .section-title {
+      margin-top: 28px;
+      margin-bottom: 12px;
+      font-size: clamp(1.3rem, 2vw, 1.8rem);
+      color: #1d3e2b;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(30, 60, 38, 0.09);
+      transform: translateY(0);
+      transition: transform 220ms ease, box-shadow 220ms ease;
+      animation: rise 500ms ease both;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(30, 60, 38, 0.17);
+    }
+    .media {
+      position: relative;
+      height: 170px;
+      overflow: hidden;
+      background: #eff5ef;
+    }
+    .media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.45));
+    }
+    .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.05) contrast(1.03);
+      transition: transform 220ms ease;
+    }
+    .card:hover .media img { transform: scale(1.03); }
+    .score {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 7px 9px;
+      color: #10311e;
+      background: rgba(230, 247, 235, 0.92);
+      border: 1px solid #b6d9c0;
+      backdrop-filter: blur(4px);
+    }
+    .card-body {
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+    }
+    .card h3 {
+      font-size: 1.1rem;
+      margin: 0;
+      line-height: 1.3;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin: 0;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .tag {
+      font-size: 0.79rem;
+      border: 1px solid var(--line);
+      background: #f8fbf8;
+      border-radius: 999px;
+      padding: 5px 8px;
+      color: #355a45;
+      font-weight: 600;
+    }
+    .facts {
+      display: grid;
+      gap: 5px;
+      margin: 2px 0 0;
+      padding: 0;
+      list-style: none;
+      font-size: 0.88rem;
+      color: #1f3326;
+    }
+    .facts li b { color: #19432c; }
+    .money {
+      border-radius: 10px;
+      border: 1px dashed #bdd9c3;
+      background: #f2fbf3;
+      padding: 9px 10px;
+      font-size: 0.9rem;
+      color: #16402a;
+      font-weight: 700;
+    }
+    .gallery-wrap {
+      margin-top: 28px;
+      border: 1px solid var(--line);
+      background: #fbfefb;
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 12px 24px rgba(30, 60, 38, 0.08);
+    }
+    .gallery-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .gallery-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      max-width: 780px;
+      line-height: 1.7;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 10px;
+    }
+    .thumb {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid #d6e2d6;
+      padding: 0;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(26, 41, 30, 0.08);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .thumb:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(26, 41, 30, 0.15);
+    }
+    .thumb img {
+      width: 100%;
+      height: 136px;
+      display: block;
+      object-fit: cover;
+    }
+    .thumb span {
+      display: block;
+      padding: 8px;
+      color: #40604c;
+      font-size: 0.78rem;
+      font-weight: 600;
       text-align: center;
     }
-
+    dialog {
+      border: none;
+      border-radius: 12px;
+      padding: 0;
+      max-width: 90vw;
+      width: 920px;
+      background: #101613;
+      color: #fff;
+    }
+    dialog::backdrop { background: rgba(5, 9, 7, 0.75); }
+    .lightbox img {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      display: block;
+      background: #101613;
+    }
+    .lightbox .cap {
+      padding: 10px 14px 14px;
+      color: #d2e6d7;
+      font-size: 0.9rem;
+    }
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: 1px solid #739680;
+      border-radius: 999px;
+      background: rgba(30, 50, 40, 0.75);
+      color: #fff;
+      width: 34px;
+      height: 34px;
+      cursor: pointer;
+      font-size: 1.05rem;
+    }
     .note {
+      margin-top: 18px;
       color: var(--muted);
-      margin-top: 14px;
-      font-size: 0.95rem;
-      line-height: 1.6;
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    @keyframes rise {
+      from { transform: translateY(6px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @media (max-width: 680px) {
+      .hero { padding: 20px; }
+      .hero h1 { padding-right: 0; }
+      .media { height: 150px; }
+      .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <a class="back" href="../index.html">&larr; Back to Home</a>
-    <article>
-      <h1>Flower Crop Profit Model: Solan and Pune/Mumbai</h1>
-      <div class="meta">By Yutika • Updated April 29, 2026</div>
+  <main class="layout">
+    <a class="back" href="../index.html">← Back to Home</a>
 
-      <h2>🏔️ SOLAN FLOWER LIST (COOL CLIMATE - HIGH PROFIT MODEL)</h2>
-      <div class="grid">
-        <section class="crop">
-          <h3>🌺 Carnation (CORE BUSINESS CROP) - 7</h3>
-          <ul>
-            <li>⏱️ Growth: 5-6 months</li>
-            <li>🌸 Harvest: every 7-10 days</li>
-            <li>🔁 Life: 2-3 years continuous</li>
-            <li>📦 Yield: 150-200 bundles/month/tunnel</li>
-            <li>💰 Price: &#8377;200-350/bundle</li>
-            <li>💵 Revenue: &#8377;4-7 lakh/year/tunnel</li>
-            <li>🧠 Best planting: Sep-Oct</li>
-            <li>⭐ Profit: Very high + stable</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌷 Oriental Lily (PREMIUM) - 5</h3>
-          <ul>
-            <li>⏱️ Growth: 90-120 days</li>
-            <li>🔁 Cycles: 2-3/year</li>
-            <li>📦 Yield: ~10,000 stems/polyhouse</li>
-            <li>💰 Price: &#8377;80-150/stem</li>
-            <li>💵 Revenue: &#8377;8-15 lakh/cycle</li>
-            <li>🧠 Planting: staggered year-round</li>
-            <li>⚠️ High investment</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌸 Eustoma (Lisianthus) - 6</h3>
-          <ul>
-            <li>⏱️ Growth: 5-6 months</li>
-            <li>🌸 Harvest: multiple flushes</li>
-            <li>💰 Price: &#8377;15-40/stem</li>
-            <li>💵 Revenue: &#8377;5-8 lakh/year</li>
-            <li>⚠️ Sensitive crop</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌿 Gypsophila (FILLER - HIGH DEMAND) - 6</h3>
-          <ul>
-            <li>⏱️ Growth: ~4 months</li>
-            <li>🌸 Harvest: continuous</li>
-            <li>💰 Price: &#8377;200-400/bunch</li>
-            <li>💵 Revenue: &#8377;4-8 lakh/year</li>
-            <li>⭐ High demand in bouquets</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌿 Limonium (DRY FLOWER MARKET) - 6</h3>
-          <ul>
-            <li>⏱️ Growth: 4-5 months</li>
-            <li>🌸 Harvest: continuous</li>
-            <li>💰 Price: &#8377;150-300/bunch</li>
-            <li>💵 Revenue: &#8377;3-6 lakh/year</li>
-            <li>⭐ Long shelf life</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌼 Chrysanthemum - 6</h3>
-          <ul>
-            <li>⏱️ Growth: 3-4 months</li>
-            <li>🌸 Harvest: seasonal</li>
-            <li>💰 Price: &#8377;80-200/bundle</li>
-            <li>💵 Revenue: &#8377;2-4 lakh/cycle</li>
-            <li>🧠 Best for festival timing</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌺 Gladiolus - 6</h3>
-          <ul>
-            <li>⏱️ Growth: 3-4 months</li>
-            <li>🔁 Cycles: 2-3/year</li>
-            <li>💰 Price: &#8377;5-15/stem</li>
-            <li>💵 Revenue: &#8377;1-2 lakh/cycle</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🥬 Ornamental Kale - 6</h3>
-          <ul>
-            <li>⏱️ Growth: 2-3 months</li>
-            <li>❄️ Winter crop</li>
-            <li>💰 Price: &#8377;20-50/plant</li>
-            <li>💵 Niche market</li>
-          </ul>
-        </section>
-      </div>
-
-      <h2>🌇 PUNE / MUMBAI FLOWER LIST (HEAT ADAPTED + MARKET DRIVEN)</h2>
-      <div class="grid">
-        <section class="crop">
-          <h3>🌹 Rose (CUT FLOWER - STRONG MARKET) - 5</h3>
-          <ul>
-            <li>⏱️ Growth: 4-5 months</li>
-            <li>🔁 Life: 3-5 years</li>
-            <li>🌸 Harvest: daily</li>
-            <li>💰 Price: &#8377;3-10/stem</li>
-            <li>💵 Revenue: &#8377;5-10 lakh/year</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌼 Gerbera - 6</h3>
-          <ul>
-            <li>⏱️ Growth: ~3 months</li>
-            <li>🔁 Life: 2-3 years</li>
-            <li>🌸 Daily harvest</li>
-            <li>💰 Price: &#8377;4-10/stem</li>
-            <li>💵 Revenue: &#8377;5-9 lakh/year</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌺 Carnation (WITH COOLING) - 5</h3>
-          <ul>
-            <li>Same as Solan but:</li>
-            <li>⚠️ Needs cooling</li>
-            <li>💰 Slightly lower yield</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌼 Chrysanthemum - 6</h3>
-          <ul>
-            <li>⏱️ Growth: 3-4 months</li>
-            <li>💰 Price: &#8377;80-200/bundle</li>
-            <li>⭐ Easy starter</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌻 Sunflower (FAST CASH) - 7</h3>
-          <ul>
-            <li>⏱️ Growth: 60-70 days</li>
-            <li>💰 Price: &#8377;5-15/stem</li>
-            <li>💵 Fast turnover</li>
-            <li>⭐ Low risk</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌼 Marigold (GARLAND MARKET) - 6</h3>
-          <ul>
-            <li>⏱️ Growth: 60-80 days</li>
-            <li>💰 Price: &#8377;20-60/kg</li>
-            <li>💵 Festival spikes</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌿 Limonium - 6</h3>
-          <ul>
-            <li>Same as Solan</li>
-            <li>Works in Pune</li>
-          </ul>
-        </section>
-
-        <section class="crop">
-          <h3>🌺 Gladiolus (WINTER) - 6</h3>
-          <ul>
-            <li>Seasonal</li>
-            <li>Good returns in winter</li>
-          </ul>
-        </section>
-      </div>
-
-      <!-- CATALOG_GALLERY_START -->
-      <h2>?? Flower Catalog Image Gallery</h2>
-      <div class="gallery">
-        <figure>
-          <img src="data/images/flower_catalog_001.jpeg" alt="Flower catalog image 1" loading="lazy">
-          <figcaption>Catalog Image 1</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_002.jpeg" alt="Flower catalog image 2" loading="lazy">
-          <figcaption>Catalog Image 2</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_003.jpeg" alt="Flower catalog image 3" loading="lazy">
-          <figcaption>Catalog Image 3</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_004.jpeg" alt="Flower catalog image 4" loading="lazy">
-          <figcaption>Catalog Image 4</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_005.jpeg" alt="Flower catalog image 5" loading="lazy">
-          <figcaption>Catalog Image 5</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_006.jpeg" alt="Flower catalog image 6" loading="lazy">
-          <figcaption>Catalog Image 6</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_007.jpeg" alt="Flower catalog image 7" loading="lazy">
-          <figcaption>Catalog Image 7</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_008.jpeg" alt="Flower catalog image 8" loading="lazy">
-          <figcaption>Catalog Image 8</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_009.jpeg" alt="Flower catalog image 9" loading="lazy">
-          <figcaption>Catalog Image 9</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_010.jpeg" alt="Flower catalog image 10" loading="lazy">
-          <figcaption>Catalog Image 10</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_011.jpeg" alt="Flower catalog image 11" loading="lazy">
-          <figcaption>Catalog Image 11</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_012.jpeg" alt="Flower catalog image 12" loading="lazy">
-          <figcaption>Catalog Image 12</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_013.jpeg" alt="Flower catalog image 13" loading="lazy">
-          <figcaption>Catalog Image 13</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_014.jpeg" alt="Flower catalog image 14" loading="lazy">
-          <figcaption>Catalog Image 14</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_015.jpeg" alt="Flower catalog image 15" loading="lazy">
-          <figcaption>Catalog Image 15</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_016.jpeg" alt="Flower catalog image 16" loading="lazy">
-          <figcaption>Catalog Image 16</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_017.jpeg" alt="Flower catalog image 17" loading="lazy">
-          <figcaption>Catalog Image 17</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_018.jpeg" alt="Flower catalog image 18" loading="lazy">
-          <figcaption>Catalog Image 18</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_019.jpeg" alt="Flower catalog image 19" loading="lazy">
-          <figcaption>Catalog Image 19</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_020.jpeg" alt="Flower catalog image 20" loading="lazy">
-          <figcaption>Catalog Image 20</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_021.jpeg" alt="Flower catalog image 21" loading="lazy">
-          <figcaption>Catalog Image 21</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_022.jpeg" alt="Flower catalog image 22" loading="lazy">
-          <figcaption>Catalog Image 22</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_023.jpeg" alt="Flower catalog image 23" loading="lazy">
-          <figcaption>Catalog Image 23</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_024.jpeg" alt="Flower catalog image 24" loading="lazy">
-          <figcaption>Catalog Image 24</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_025.jpeg" alt="Flower catalog image 25" loading="lazy">
-          <figcaption>Catalog Image 25</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_026.jpeg" alt="Flower catalog image 26" loading="lazy">
-          <figcaption>Catalog Image 26</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_027.jpeg" alt="Flower catalog image 27" loading="lazy">
-          <figcaption>Catalog Image 27</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_028.jpeg" alt="Flower catalog image 28" loading="lazy">
-          <figcaption>Catalog Image 28</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_029.jpeg" alt="Flower catalog image 29" loading="lazy">
-          <figcaption>Catalog Image 29</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_030.jpeg" alt="Flower catalog image 30" loading="lazy">
-          <figcaption>Catalog Image 30</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_031.jpeg" alt="Flower catalog image 31" loading="lazy">
-          <figcaption>Catalog Image 31</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_032.jpeg" alt="Flower catalog image 32" loading="lazy">
-          <figcaption>Catalog Image 32</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_033.jpeg" alt="Flower catalog image 33" loading="lazy">
-          <figcaption>Catalog Image 33</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_034.jpeg" alt="Flower catalog image 34" loading="lazy">
-          <figcaption>Catalog Image 34</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_035.jpeg" alt="Flower catalog image 35" loading="lazy">
-          <figcaption>Catalog Image 35</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_036.jpeg" alt="Flower catalog image 36" loading="lazy">
-          <figcaption>Catalog Image 36</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_037.jpeg" alt="Flower catalog image 37" loading="lazy">
-          <figcaption>Catalog Image 37</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_038.jpeg" alt="Flower catalog image 38" loading="lazy">
-          <figcaption>Catalog Image 38</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_039.jpeg" alt="Flower catalog image 39" loading="lazy">
-          <figcaption>Catalog Image 39</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_040.jpeg" alt="Flower catalog image 40" loading="lazy">
-          <figcaption>Catalog Image 40</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_041.jpeg" alt="Flower catalog image 41" loading="lazy">
-          <figcaption>Catalog Image 41</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_042.jpeg" alt="Flower catalog image 42" loading="lazy">
-          <figcaption>Catalog Image 42</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_043.jpeg" alt="Flower catalog image 43" loading="lazy">
-          <figcaption>Catalog Image 43</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_044.jpeg" alt="Flower catalog image 44" loading="lazy">
-          <figcaption>Catalog Image 44</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_045.jpeg" alt="Flower catalog image 45" loading="lazy">
-          <figcaption>Catalog Image 45</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_046.jpeg" alt="Flower catalog image 46" loading="lazy">
-          <figcaption>Catalog Image 46</figcaption>
-        </figure>
-        <figure>
-          <img src="data/images/flower_catalog_047.jpeg" alt="Flower catalog image 47" loading="lazy">
-          <figcaption>Catalog Image 47</figcaption>
-        </figure>
-      </div>
-      <!-- CATALOG_GALLERY_END -->
-
-      <p class="note">
-        Note: figures can vary by season, disease pressure, input quality, and market access.
+    <section class="hero">
+      <h1>Flower Crop Profit Model: Solan vs Pune-Mumbai</h1>
+      <p class="sub">
+        A practical region-wise planning sheet turned into a visual model. This page compares cool-climate
+        and heat-adapted flowers by crop cycle, harvest rhythm, and revenue potential.
       </p>
-    </article>
+      <div class="meta-row">
+        <span class="pill">By Yutika</span>
+        <span class="pill">Updated April 29, 2026</span>
+        <span class="pill">Commercial Floriculture</span>
+      </div>
+      <div class="summary">
+        <div class="cell"><b>Solan Focus</b><span>Carnation, Lily, Filler Crops</span></div>
+        <div class="cell"><b>Pune/Mumbai Focus</b><span>Rose, Gerbera, Fast Cash Flowers</span></div>
+        <div class="cell"><b>Highest Cycle Revenue</b><span>Oriental Lily (₹8-15L/cycle)</span></div>
+        <div class="cell"><b>Low Risk Starter</b><span>Sunflower + Marigold + Chrysanthemum</span></div>
+      </div>
+      <div class="controls" id="region-tabs">
+        <button class="tab active" data-region="all">All Crops</button>
+        <button class="tab" data-region="solan">Solan Model</button>
+        <button class="tab" data-region="pune">Pune/Mumbai Model</button>
+      </div>
+    </section>
+
+    <h2 class="section-title" id="section-title">All Recommended Crops</h2>
+    <section class="cards" id="cards"></section>
+
+    <section class="gallery-wrap">
+      <div class="gallery-head">
+        <div>
+          <h2>Flower Catalog Visual Gallery</h2>
+          <p>
+            Full image set extracted from your flower catalog document. Click any visual to open full-screen.
+          </p>
+        </div>
+        <span class="pill" id="gallery-count">47 Images</span>
+      </div>
+      <div class="gallery" id="gallery"></div>
+    </section>
+
+    <p class="note">
+      Note: Price, yield, and revenue vary with seasonality, local demand, disease pressure, planting density,
+      and post-harvest handling quality.
+    </p>
   </main>
+
+  <dialog id="lightbox">
+    <button class="close" id="close-lightbox" aria-label="Close">×</button>
+    <div class="lightbox">
+      <img id="lightbox-img" alt="">
+      <div class="cap" id="lightbox-cap"></div>
+    </div>
+  </dialog>
+
+  <script>
+    const crops = [
+      {
+        region: "solan",
+        emoji: "🌺",
+        name: "Carnation",
+        type: "Core business crop",
+        score: 7,
+        growth: "5-6 months",
+        harvest: "Every 7-10 days",
+        lifecycle: "2-3 years continuous",
+        yield: "150-200 bundles/month/tunnel",
+        price: "₹200-350/bundle",
+        revenue: "₹4-7 lakh/year/tunnel",
+        tip: "Best planting: Sep-Oct",
+        note: "Very high + stable",
+        image: 1
+      },
+      {
+        region: "solan",
+        emoji: "🌷",
+        name: "Oriental Lily",
+        type: "Premium",
+        score: 5,
+        growth: "90-120 days",
+        harvest: "2-3 cycles/year",
+        lifecycle: "Staggered year-round planting",
+        yield: "~10,000 stems/polyhouse",
+        price: "₹80-150/stem",
+        revenue: "₹8-15 lakh/cycle",
+        tip: "Plan staggered batches",
+        note: "High investment crop",
+        image: 2
+      },
+      {
+        region: "solan",
+        emoji: "🌸",
+        name: "Eustoma (Lisianthus)",
+        type: "Sensitive premium stem",
+        score: 6,
+        growth: "5-6 months",
+        harvest: "Multiple flushes",
+        lifecycle: "Managed cycles under protection",
+        yield: "Quality-focused",
+        price: "₹15-40/stem",
+        revenue: "₹5-8 lakh/year",
+        tip: "Maintain stable climate",
+        note: "Sensitive crop management",
+        image: 3
+      },
+      {
+        region: "solan",
+        emoji: "🌿",
+        name: "Gypsophila",
+        type: "Filler high demand",
+        score: 6,
+        growth: "~4 months",
+        harvest: "Continuous",
+        lifecycle: "Regular flushes",
+        yield: "Bouquet filler volume crop",
+        price: "₹200-400/bunch",
+        revenue: "₹4-8 lakh/year",
+        tip: "Excellent bouquet tie-in",
+        note: "High bouquet demand",
+        image: 4
+      },
+      {
+        region: "solan",
+        emoji: "🌿",
+        name: "Limonium",
+        type: "Dry flower market",
+        score: 6,
+        growth: "4-5 months",
+        harvest: "Continuous",
+        lifecycle: "Shelf-stable output",
+        yield: "Dry and fresh channels",
+        price: "₹150-300/bunch",
+        revenue: "₹3-6 lakh/year",
+        tip: "Useful for dry-flower line",
+        note: "Long shelf life",
+        image: 5
+      },
+      {
+        region: "solan",
+        emoji: "🌼",
+        name: "Chrysanthemum",
+        type: "Seasonal planner crop",
+        score: 6,
+        growth: "3-4 months",
+        harvest: "Seasonal",
+        lifecycle: "Festival-driven cycles",
+        yield: "Timing sensitive returns",
+        price: "₹80-200/bundle",
+        revenue: "₹2-4 lakh/cycle",
+        tip: "Best aligned to festivals",
+        note: "Strong seasonal demand",
+        image: 6
+      },
+      {
+        region: "solan",
+        emoji: "🌺",
+        name: "Gladiolus",
+        type: "Seasonal stem crop",
+        score: 6,
+        growth: "3-4 months",
+        harvest: "2-3 cycles/year",
+        lifecycle: "Cycle-based production",
+        yield: "Market-linked output",
+        price: "₹5-15/stem",
+        revenue: "₹1-2 lakh/cycle",
+        tip: "Good in winter demand pockets",
+        note: "Reliable seasonal crop",
+        image: 7
+      },
+      {
+        region: "solan",
+        emoji: "🥬",
+        name: "Ornamental Kale",
+        type: "Niche winter ornamental",
+        score: 6,
+        growth: "2-3 months",
+        harvest: "Winter-focused",
+        lifecycle: "Short seasonal runs",
+        yield: "Niche market volume",
+        price: "₹20-50/plant",
+        revenue: "Niche market dependent",
+        tip: "Add for premium winter assortments",
+        note: "Specialty positioning crop",
+        image: 8
+      },
+      {
+        region: "pune",
+        emoji: "🌹",
+        name: "Rose",
+        type: "Cut flower strong market",
+        score: 5,
+        growth: "4-5 months",
+        harvest: "Daily",
+        lifecycle: "3-5 years",
+        yield: "Steady stem flow",
+        price: "₹3-10/stem",
+        revenue: "₹5-10 lakh/year",
+        tip: "Build direct florist/channel buyers",
+        note: "Strong demand continuity",
+        image: 9
+      },
+      {
+        region: "pune",
+        emoji: "🌼",
+        name: "Gerbera",
+        type: "Heat-adapted protected crop",
+        score: 6,
+        growth: "~3 months",
+        harvest: "Daily",
+        lifecycle: "2-3 years",
+        yield: "Consistent flowering",
+        price: "₹4-10/stem",
+        revenue: "₹5-9 lakh/year",
+        tip: "Great balance of volume and value",
+        note: "Popular florist staple",
+        image: 10
+      },
+      {
+        region: "pune",
+        emoji: "🌺",
+        name: "Carnation (with cooling)",
+        type: "Controlled climate adaptation",
+        score: 5,
+        growth: "5-6 months",
+        harvest: "Every 7-10 days",
+        lifecycle: "Multi-year in controlled setup",
+        yield: "Slightly lower than Solan",
+        price: "₹200-350/bundle",
+        revenue: "Depends on cooling efficiency",
+        tip: "Cooling quality decides profit",
+        note: "Needs climate control",
+        image: 11
+      },
+      {
+        region: "pune",
+        emoji: "🌼",
+        name: "Chrysanthemum",
+        type: "Easy starter crop",
+        score: 6,
+        growth: "3-4 months",
+        harvest: "Seasonal",
+        lifecycle: "Event and festive cycles",
+        yield: "Beginner-friendly",
+        price: "₹80-200/bundle",
+        revenue: "Cycle driven",
+        tip: "Low complexity starter option",
+        note: "Easy operationally",
+        image: 12
+      },
+      {
+        region: "pune",
+        emoji: "🌻",
+        name: "Sunflower",
+        type: "Fast cash crop",
+        score: 7,
+        growth: "60-70 days",
+        harvest: "Quick turnover",
+        lifecycle: "Short cycle repeats",
+        yield: "Rapid volume cycles",
+        price: "₹5-15/stem",
+        revenue: "Fast turnover model",
+        tip: "Great for working-capital speed",
+        note: "Low risk crop",
+        image: 13
+      },
+      {
+        region: "pune",
+        emoji: "🌼",
+        name: "Marigold",
+        type: "Garland market crop",
+        score: 6,
+        growth: "60-80 days",
+        harvest: "Festival spikes",
+        lifecycle: "Short cycles with timing edge",
+        yield: "Volume + timing sensitive",
+        price: "₹20-60/kg",
+        revenue: "Festival peak upside",
+        tip: "Plan around event calendars",
+        note: "Strong seasonal spikes",
+        image: 14
+      },
+      {
+        region: "pune",
+        emoji: "🌿",
+        name: "Limonium",
+        type: "Dry and bouquet support crop",
+        score: 6,
+        growth: "4-5 months",
+        harvest: "Continuous",
+        lifecycle: "Flexible post-harvest handling",
+        yield: "Works in Pune conditions",
+        price: "₹150-300/bunch",
+        revenue: "₹3-6 lakh/year range",
+        tip: "Useful as bouquet filler stream",
+        note: "Adaptable market use",
+        image: 15
+      },
+      {
+        region: "pune",
+        emoji: "🌺",
+        name: "Gladiolus (winter)",
+        type: "Seasonal winter return crop",
+        score: 6,
+        growth: "3-4 months",
+        harvest: "Seasonal winter",
+        lifecycle: "Cycle based",
+        yield: "Good winter response",
+        price: "₹5-15/stem",
+        revenue: "Good winter returns",
+        tip: "Target winter windows",
+        note: "Seasonality is key",
+        image: 16
+      }
+    ];
+
+    const cardsEl = document.getElementById("cards");
+    const tabsEl = document.getElementById("region-tabs");
+    const sectionTitleEl = document.getElementById("section-title");
+    const galleryEl = document.getElementById("gallery");
+    const galleryCountEl = document.getElementById("gallery-count");
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxCap = document.getElementById("lightbox-cap");
+    const closeLightbox = document.getElementById("close-lightbox");
+
+    const regionTitles = {
+      all: "All Recommended Crops",
+      solan: "Solan Model (Cool Climate + High Profit)",
+      pune: "Pune/Mumbai Model (Heat Adapted + Market Driven)"
+    };
+
+    function imagePath(idx) {
+      return `data/images/flower_catalog_${String(idx).padStart(3, "0")}.jpeg`;
+    }
+
+    function cardTemplate(crop) {
+      return `
+        <article class="card">
+          <div class="media">
+            <img src="${imagePath(crop.image)}" alt="${crop.name}" loading="lazy">
+            <span class="score">Score ${crop.score}/7</span>
+          </div>
+          <div class="card-body">
+            <h3>${crop.emoji} ${crop.name}</h3>
+            <p class="subtitle">${crop.type}</p>
+            <div class="tags">
+              <span class="tag">${crop.region === "solan" ? "Solan" : "Pune/Mumbai"}</span>
+              <span class="tag">Growth ${crop.growth}</span>
+            </div>
+            <ul class="facts">
+              <li><b>Harvest:</b> ${crop.harvest}</li>
+              <li><b>Lifecycle:</b> ${crop.lifecycle}</li>
+              <li><b>Yield:</b> ${crop.yield}</li>
+              <li><b>Price:</b> ${crop.price}</li>
+              <li><b>Tip:</b> ${crop.tip}</li>
+            </ul>
+            <div class="money">Revenue: ${crop.revenue}</div>
+            <div class="tag">${crop.note}</div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderCards(region = "all") {
+      const filtered = region === "all"
+        ? crops
+        : crops.filter(c => c.region === region);
+      cardsEl.innerHTML = filtered.map(cardTemplate).join("");
+      sectionTitleEl.textContent = regionTitles[region];
+    }
+
+    tabsEl.addEventListener("click", (e) => {
+      const btn = e.target.closest(".tab");
+      if (!btn) return;
+      const region = btn.dataset.region;
+      for (const item of tabsEl.querySelectorAll(".tab")) item.classList.remove("active");
+      btn.classList.add("active");
+      renderCards(region);
+    });
+
+    function renderGallery(total = 47) {
+      const nodes = [];
+      for (let i = 1; i <= total; i += 1) {
+        nodes.push(`
+          <button class="thumb" data-src="${imagePath(i)}" data-cap="Catalog Image ${i}">
+            <img src="${imagePath(i)}" alt="Flower catalog image ${i}" loading="lazy">
+            <span>Catalog Image ${i}</span>
+          </button>
+        `);
+      }
+      galleryEl.innerHTML = nodes.join("");
+      galleryCountEl.textContent = `${total} Images`;
+    }
+
+    galleryEl.addEventListener("click", (e) => {
+      const btn = e.target.closest(".thumb");
+      if (!btn) return;
+      lightboxImg.src = btn.dataset.src;
+      lightboxImg.alt = btn.dataset.cap;
+      lightboxCap.textContent = btn.dataset.cap;
+      lightbox.showModal();
+    });
+
+    closeLightbox.addEventListener("click", () => lightbox.close());
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) lightbox.close();
+    });
+
+    renderCards("all");
+    renderGallery(47);
+  </script>
 </body>
 </html>
