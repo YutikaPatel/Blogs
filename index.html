@@ -3,70 +3,94 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Yutika's Garden Notes</title>
+  <title>Yutika Blogs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #f6f8f2;
-      --card: #ffffff;
-      --ink: #1f2a1f;
-      --muted: #5b6c5a;
-      --accent: #2f7d4e;
-      --line: #d7e2d2;
+    :root{
+      --bg:#f2f7f2;
+      --ink:#142218;
+      --muted:#58695e;
+      --line:#d1e0d3;
+      --brand:#1f6a45;
+      --card:#fff;
+      --shadow:0 16px 34px rgba(20,41,28,.12);
     }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Georgia", "Times New Roman", serif;
-      color: var(--ink);
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Manrope","Segoe UI",sans-serif;
+      color:var(--ink);
       background:
-        radial-gradient(circle at 15% 15%, #eaf3e4 0, transparent 35%),
-        radial-gradient(circle at 85% 0%, #edf7ea 0, transparent 40%),
+        radial-gradient(900px 460px at -12% -12%, #e5f2e6 0, transparent 55%),
+        radial-gradient(900px 460px at 112% -20%, #f7ece6 0, transparent 52%),
         var(--bg);
     }
-    .wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 28px 18px 48px;
+    .wrap{max-width:1020px;margin:0 auto;padding:28px 16px 60px}
+    .hero{
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:linear-gradient(150deg,#fff,#f8fcf8 60%,#f2f9f3);
+      box-shadow:var(--shadow);
+      padding:28px;
+      margin-bottom:16px;
     }
-    .hero {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 8px 24px rgba(40, 70, 40, 0.06);
+    h1,h2,h3{font-family:"Playfair Display",serif;margin:0}
+    h1{font-size:clamp(2rem,2.8vw,3rem);margin-bottom:8px}
+    .sub{margin:0;color:var(--muted);line-height:1.75;max-width:760px}
+    .featured{
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:var(--card);
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      box-shadow:0 12px 28px rgba(21,42,29,.11);
     }
-    h1 { margin: 0 0 8px; font-size: 2rem; }
-    p { line-height: 1.7; }
-    .muted { color: var(--muted); }
-    .post-list {
-      margin-top: 20px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 20px;
+    .img img{display:block;width:100%;height:100%;min-height:270px;object-fit:cover}
+    .content{padding:22px}
+    .badge{display:inline-block;font-size:.76rem;font-weight:700;background:#e7f3ea;color:#19402b;border:1px solid #c7dccd;border-radius:999px;padding:6px 10px}
+    .content h2{margin-top:10px;font-size:1.72rem;line-height:1.24}
+    .meta{margin-top:8px;color:var(--muted);font-size:.92rem}
+    .desc{margin-top:12px;color:#25362b;line-height:1.7}
+    .cta{
+      margin-top:18px;
+      display:inline-block;
+      text-decoration:none;
+      background:var(--brand);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:700;
+      border:1px solid var(--brand);
     }
-    .post-list a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 700;
+    .cta:hover{filter:brightness(1.05)}
+    @media (max-width:860px){
+      .featured{grid-template-columns:1fr}
+      .img img{min-height:220px}
     }
-    .post-list a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <main class="wrap">
     <section class="hero">
-      <h1>Yutika's Garden Notes</h1>
-      <p class="muted">Small stories from flowers, seasons, and calm corners of the garden.</p>
+      <h1>Yutika Flower Business Blog</h1>
+      <p class="sub">Practical models for commercial floriculture: crop choices, cycle strategy, and visual crop references from your field catalog.</p>
     </section>
 
-    <section class="post-list">
-      <h2>Articles</h2>
-      <p>
-        <a href="posts/flowers-first-post.html">Flower Crop Profit Model: Solan and Pune/Mumbai</a><br>
-        <span class="muted">Published April 29, 2026</span>
-      </p>
-    </section>
+    <article class="featured">
+      <div class="img">
+        <img src="posts/data/images/flower_catalog_001.jpeg" alt="Featured flower crop">
+      </div>
+      <div class="content">
+        <span class="badge">Featured Article</span>
+        <h2>Flower Crop Profit Model: Solan vs Pune-Mumbai</h2>
+        <div class="meta">Updated April 29, 2026</div>
+        <p class="desc">Compare region-wise crop economics and open each flower card to view associated catalog images, lifecycle metrics, yield, pricing, and revenue notes.</p>
+        <a class="cta" href="posts/flowers-first-post.html">Open Flower Intelligence Page</a>
+      </div>
+    </article>
   </main>
 </body>
 </html>
