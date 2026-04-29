@@ -3,94 +3,363 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Yutika Blogs</title>
+  <title>Yutika — Floriculture Journal</title>
+  <meta name="description" content="An editorial journal of commercial floriculture: crop economics, regional models, and a visual catalog of cut flowers.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#f2f7f2;
-      --ink:#142218;
-      --muted:#58695e;
-      --line:#d1e0d3;
-      --brand:#1f6a45;
-      --card:#fff;
-      --shadow:0 16px 34px rgba(20,41,28,.12);
+      --bg:#f6f3ec;
+      --surface:#ffffff;
+      --ink:#1a201a;
+      --ink-2:#33402f;
+      --muted:#6b7763;
+      --line:#e3dfd2;
+      --line-2:#cdd5c2;
+      --brand:#1f5236;
+      --brand-2:#2d7a52;
+      --warm:#a04a2c;
+      --gold:#b58a3a;
+      --shadow-sm:0 4px 14px rgba(26,32,26,.06);
+      --shadow:0 18px 44px rgba(26,32,26,.10);
+      --shadow-lg:0 30px 70px rgba(26,32,26,.18);
+      --r-sm:10px;
+      --r-md:16px;
+      --r-lg:22px;
+      --r-xl:28px;
     }
     *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
     body{
-      margin:0;
-      font-family:"Manrope","Segoe UI",sans-serif;
+      font-family:"Inter","Segoe UI",sans-serif;
       color:var(--ink);
-      background:
-        radial-gradient(900px 460px at -12% -12%, #e5f2e6 0, transparent 55%),
-        radial-gradient(900px 460px at 112% -20%, #f7ece6 0, transparent 52%),
-        var(--bg);
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      line-height:1.6;
     }
-    .wrap{max-width:1020px;margin:0 auto;padding:28px 16px 60px}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    h1,h2,h3,h4{font-family:"Fraunces",serif;font-weight:600;letter-spacing:-0.01em;margin:0;color:var(--ink)}
+
+    /* Header */
+    .nav{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:saturate(140%) blur(14px);
+      -webkit-backdrop-filter:saturate(140%) blur(14px);
+      background:rgba(246,243,236,.78);
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .nav-inner{
+      max-width:1200px;margin:0 auto;
+      padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      font-family:"Fraunces",serif;font-weight:600;font-size:1.18rem;letter-spacing:.01em;
+    }
+    .brand-mark{
+      width:30px;height:30px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%,#f4d6c1 0,#a04a2c 55%,#5e2614 100%);
+      box-shadow:inset 0 0 0 2px #fff,0 4px 10px rgba(160,74,44,.35);
+    }
+    .nav-links{display:flex;gap:22px;font-size:.92rem;color:var(--ink-2);font-weight:500}
+    .nav-links a{position:relative;padding:6px 2px}
+    .nav-links a:hover{color:var(--brand)}
+    .nav-links a.active::after{
+      content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:var(--brand);border-radius:2px;
+    }
+
+    /* Wrapper */
+    .wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+
+    /* Hero */
     .hero{
-      border:1px solid var(--line);
-      border-radius:24px;
-      background:linear-gradient(150deg,#fff,#f8fcf8 60%,#f2f9f3);
-      box-shadow:var(--shadow);
-      padding:28px;
-      margin-bottom:16px;
+      padding:72px 0 24px;
+      display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;
     }
-    h1,h2,h3{font-family:"Playfair Display",serif;margin:0}
-    h1{font-size:clamp(2rem,2.8vw,3rem);margin-bottom:8px}
-    .sub{margin:0;color:var(--muted);line-height:1.75;max-width:760px}
-    .featured{
-      border:1px solid var(--line);
-      border-radius:20px;
-      background:var(--card);
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;
+      font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--brand);
+    }
+    .eyebrow::before{content:"";width:28px;height:1px;background:var(--brand)}
+    .hero h1{
+      font-size:clamp(2.6rem,5.6vw,4.8rem);
+      line-height:1.02;letter-spacing:-0.02em;
+      margin:18px 0 22px;
+    }
+    .hero h1 em{font-style:italic;color:var(--warm);font-weight:500}
+    .hero p.lede{
+      font-size:1.08rem;color:var(--muted);line-height:1.75;max-width:540px;
+    }
+    .hero-cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:13px 22px;border-radius:999px;font-weight:600;font-size:.95rem;
+      transition:all .22s ease;cursor:pointer;border:1px solid transparent;
+    }
+    .btn-primary{background:var(--ink);color:#fff}
+    .btn-primary:hover{background:var(--brand);transform:translateY(-1px)}
+    .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-2)}
+    .btn-ghost:hover{border-color:var(--ink);background:var(--surface)}
+    .btn .arr{transition:transform .22s ease}
+    .btn:hover .arr{transform:translateX(3px)}
+
+    .hero-art{
+      position:relative;
+      aspect-ratio:4/5;
+      border-radius:var(--r-xl);
       overflow:hidden;
-      display:grid;
-      grid-template-columns:1.02fr .98fr;
-      box-shadow:0 12px 28px rgba(21,42,29,.11);
+      box-shadow:var(--shadow-lg);
     }
-    .img img{display:block;width:100%;height:100%;min-height:270px;object-fit:cover}
-    .content{padding:22px}
-    .badge{display:inline-block;font-size:.76rem;font-weight:700;background:#e7f3ea;color:#19402b;border:1px solid #c7dccd;border-radius:999px;padding:6px 10px}
-    .content h2{margin-top:10px;font-size:1.72rem;line-height:1.24}
-    .meta{margin-top:8px;color:var(--muted);font-size:.92rem}
-    .desc{margin-top:12px;color:#25362b;line-height:1.7}
-    .cta{
-      margin-top:18px;
-      display:inline-block;
-      text-decoration:none;
-      background:var(--brand);
-      color:#fff;
-      padding:10px 14px;
-      border-radius:12px;
-      font-weight:700;
-      border:1px solid var(--brand);
+    .hero-art img{
+      width:100%;height:100%;object-fit:cover;
+      transition:transform 1.2s cubic-bezier(.2,.7,.2,1);
     }
-    .cta:hover{filter:brightness(1.05)}
-    @media (max-width:860px){
+    .hero-art:hover img{transform:scale(1.04)}
+    .hero-art::after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg,transparent 50%,rgba(20,30,20,.45));
+    }
+    .hero-tag{
+      position:absolute;left:18px;bottom:18px;z-index:2;
+      color:#fff;font-family:"Fraunces",serif;font-size:1.05rem;font-weight:500;
+      letter-spacing:.02em;
+    }
+    .hero-tag small{
+      display:block;font-family:"Inter",sans-serif;font-weight:600;
+      font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+      color:rgba(255,255,255,.78);margin-bottom:6px;
+    }
+
+    /* Marquee strip */
+    .strip{
+      margin:34px 0 8px;padding:18px 0;
+      border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+      display:grid;grid-template-columns:repeat(4,1fr);gap:24px;
+      font-size:.86rem;color:var(--ink-2);
+    }
+    .strip > div b{display:block;font-family:"Fraunces",serif;font-size:1.55rem;color:var(--ink);font-weight:600;line-height:1}
+    .strip > div span{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+    /* Section heading */
+    .sec-head{
+      display:flex;align-items:end;justify-content:space-between;gap:16px;
+      margin:64px 0 22px;
+    }
+    .sec-head h2{font-size:clamp(1.8rem,3vw,2.4rem);line-height:1.1}
+    .sec-head .meta{color:var(--muted);font-size:.86rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+
+    /* Featured */
+    .featured{
+      display:grid;grid-template-columns:1.15fr .85fr;gap:0;
+      border-radius:var(--r-xl);overflow:hidden;
+      background:var(--surface);box-shadow:var(--shadow);
+      border:1px solid var(--line);
+    }
+    .featured-art{
+      position:relative;min-height:480px;overflow:hidden;background:#1a1a1a;
+    }
+    .featured-art img{
+      width:100%;height:100%;object-fit:cover;position:absolute;inset:0;
+      transition:transform 1.2s cubic-bezier(.2,.7,.2,1);
+    }
+    .featured:hover .featured-art img{transform:scale(1.05)}
+    .featured-art::after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(20,40,28,.18),transparent 50%);
+    }
+    .featured-art .floral{
+      position:absolute;left:24px;top:24px;z-index:2;
+      background:rgba(255,255,255,.94);backdrop-filter:blur(10px);
+      color:var(--brand);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+      padding:8px 14px;border-radius:999px;
+    }
+    .featured-body{
+      padding:46px 44px;display:flex;flex-direction:column;justify-content:center;gap:18px;
+    }
+    .featured-body .kicker{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--warm);font-weight:700}
+    .featured-body h3{font-size:clamp(1.7rem,2.4vw,2.2rem);line-height:1.18;letter-spacing:-0.01em}
+    .featured-body p{color:var(--muted);font-size:1.02rem;line-height:1.78;margin:0}
+    .author-row{display:flex;align-items:center;gap:12px;margin-top:8px}
+    .avatar{
+      width:38px;height:38px;border-radius:50%;
+      background:linear-gradient(135deg,#f4d6c1,#a04a2c);
+      display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;
+    }
+    .author-row small{color:var(--muted);font-size:.84rem}
+    .author-row strong{font-size:.92rem;display:block}
+
+    /* Catalog preview */
+    .catalog{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+    }
+    .cat-card{
+      position:relative;aspect-ratio:3/4;border-radius:var(--r-lg);overflow:hidden;
+      box-shadow:var(--shadow-sm);background:#222;cursor:pointer;
+      transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
+    }
+    .cat-card img{
+      width:100%;height:100%;object-fit:cover;
+      transition:transform .8s cubic-bezier(.2,.7,.2,1);
+    }
+    .cat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .cat-card:hover img{transform:scale(1.08)}
+    .cat-card::after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(180deg,transparent 40%,rgba(15,22,15,.86));
+    }
+    .cat-card .label{
+      position:absolute;left:16px;right:16px;bottom:16px;z-index:2;color:#fff;
+    }
+    .cat-card .label .n{font-family:"Fraunces",serif;font-size:1.18rem;line-height:1.2;letter-spacing:.01em;font-weight:500}
+    .cat-card .label .k{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.78);margin-top:4px;font-weight:600}
+
+    /* Footer */
+    footer{
+      margin-top:96px;padding:48px 0 56px;
+      border-top:1px solid var(--line);
+      color:var(--muted);font-size:.88rem;
+    }
+    footer .foot{
+      display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;
+    }
+    footer .brand{color:var(--ink)}
+
+    /* Mobile */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr;gap:34px;padding:38px 0 16px}
+      .hero-art{aspect-ratio:4/5;max-width:480px}
+      .strip{grid-template-columns:repeat(2,1fr);gap:14px}
       .featured{grid-template-columns:1fr}
-      .img img{min-height:220px}
+      .featured-art{min-height:300px;aspect-ratio:16/10}
+      .featured-body{padding:32px 26px}
+      .catalog{grid-template-columns:repeat(2,1fr)}
+      .nav-links{display:none}
+    }
+    @media (max-width:520px){
+      .catalog{grid-template-columns:repeat(2,1fr);gap:12px}
+      .strip{grid-template-columns:repeat(2,1fr)}
     }
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <section class="hero">
-      <h1>Yutika Flower Business Blog</h1>
-      <p class="sub">Practical models for commercial floriculture: crop choices, cycle strategy, and visual crop references from your field catalog.</p>
-    </section>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="./index.html">
+        <span class="brand-mark"></span>
+        <span>Yutika &middot; Journal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="./index.html" class="active">Home</a>
+        <a href="./flower-profit-model/">Flower Intelligence</a>
+        <a href="#catalog">Catalog</a>
+      </nav>
+    </div>
+  </header>
 
-    <article class="featured">
-      <div class="img">
-        <img src="posts/data/images/flower_catalog_001.jpeg" alt="Featured flower crop">
+  <main>
+    <section class="wrap">
+      <div class="hero">
+        <div class="hero-text">
+          <span class="eyebrow">Issue 01 &middot; Floriculture</span>
+          <h1>The economics of <em>cut flowers</em>, written from the field.</h1>
+          <p class="lede">A working journal on commercial floriculture &mdash; crop choices, regional cycles, tunnel economics, and a visual catalog of every flower we trial. Built for growers who want numbers, not poetry.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="./flower-profit-model/">
+              Open Flower Intelligence
+              <span class="arr">&rarr;</span>
+            </a>
+            <a class="btn btn-ghost" href="#featured">Read latest</a>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img src="posts/data/images/flower_catalog_001.jpeg" alt="Carnation field, polyhouse">
+          <div class="hero-tag">
+            <small>Cover &middot; Solan, India</small>
+            Carnation under polyhouse &mdash; April 2026
+          </div>
+        </div>
       </div>
-      <div class="content">
-        <span class="badge">Featured Article</span>
-        <h2>Flower Crop Profit Model: Solan vs Pune-Mumbai</h2>
-        <div class="meta">Updated April 29, 2026</div>
-        <p class="desc">Compare region-wise crop economics and open each flower card to view associated catalog images, lifecycle metrics, yield, pricing, and revenue notes.</p>
-        <a class="cta" href="flower-profit-model/">Open Flower Intelligence Page</a>
+
+      <div class="strip">
+        <div><span>Crops profiled</span><b>16</b></div>
+        <div><span>Regions</span><b>Solan + Pune</b></div>
+        <div><span>Tunnel size</span><b>1,200 sq ft</b></div>
+        <div><span>Updated</span><b>Apr 2026</b></div>
       </div>
-    </article>
+
+      <div class="sec-head" id="featured">
+        <h2>Featured study</h2>
+        <span class="meta">April 29, 2026</span>
+      </div>
+
+      <a class="featured" href="./flower-profit-model/">
+        <div class="featured-art">
+          <span class="floral">Long read</span>
+          <img src="posts/data/images/flower_catalog_002.jpeg" alt="Carnation tunnel">
+        </div>
+        <div class="featured-body">
+          <span class="kicker">Crop economics &middot; Regional</span>
+          <h3>Flower Crop Profit Model: Solan vs Pune &amp; Mumbai</h3>
+          <p>A side-by-side breakdown of sixteen cut-flower crops across two climate regions &mdash; lifecycle, water, nutrient cost, plantation outlay, and per-tunnel revenue. Open any crop card to see the full agronomy and economics profile alongside its visual catalog.</p>
+          <div class="author-row">
+            <div class="avatar">YP</div>
+            <div>
+              <strong>Yutika Patel</strong>
+              <small>Research notes &middot; 8 min read</small>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <div class="sec-head" id="catalog">
+        <h2>Visual catalog &mdash; selected</h2>
+        <span class="meta">From the field</span>
+      </div>
+
+      <div class="catalog">
+        <a class="cat-card" href="./flower-profit-model/">
+          <img src="posts/data/images/flower_catalog_001.jpeg" alt="Carnation">
+          <div class="label">
+            <div class="k">Solan &middot; Base crop</div>
+            <div class="n">Carnation</div>
+          </div>
+        </a>
+        <a class="cat-card" href="./flower-profit-model/">
+          <img src="posts/data/images/flower_catalog_009.jpeg" alt="Rose">
+          <div class="label">
+            <div class="k">Pune &middot; City market</div>
+            <div class="n">Rose</div>
+          </div>
+        </a>
+        <a class="cat-card" href="./flower-profit-model/">
+          <img src="posts/data/images/flower_catalog_011.jpeg" alt="Gerbera">
+          <div class="label">
+            <div class="k">Pune &middot; Florist staple</div>
+            <div class="n">Gerbera</div>
+          </div>
+        </a>
+        <a class="cat-card" href="./flower-profit-model/">
+          <img src="posts/data/images/flower_catalog_003.jpeg" alt="Oriental Lily">
+          <div class="label">
+            <div class="k">Solan &middot; Premium</div>
+            <div class="n">Oriental Lily</div>
+          </div>
+        </a>
+      </div>
+    </section>
   </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div class="brand">
+        <span class="brand-mark"></span>&nbsp;Yutika &middot; Floriculture Journal
+      </div>
+      <div>&copy; 2026 &middot; Field notes from Solan &amp; Pune</div>
+    </div>
+  </footer>
 </body>
 </html>
