@@ -485,8 +485,9 @@
       </a>
       <nav class="nav-links">
         <a href="../index.html">Home</a>
-        <a href="./" class="active">Flower Intelligence</a>
-        <a href="../index.html#catalog">Catalog</a>
+        <a href="./" class="active">Flowers</a>
+        <a href="../vegetable-profit-model/">Vegetables</a>
+        <a href="../tunnel-planner/">Tunnel Planner</a>
       </nav>
     </div>
   </header>
@@ -507,6 +508,10 @@
           <span class="pill"><span class="dot"></span>Updated April 29, 2026</span>
           <span class="pill"><span class="dot" style="background:var(--warm)"></span>Per Tunnel &middot; 1,200 sq ft</span>
           <span class="pill"><span class="dot" style="background:var(--gold)"></span>Climate + Water + Nutrients</span>
+        </div>
+        <div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap">
+          <a href="../tunnel-planner/" style="display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .2s">Plan your tunnel mix &rarr;</a>
+          <a href="../vegetable-profit-model/" style="display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--ink);padding:11px 18px;border-radius:999px;font-weight:600;font-size:.9rem;text-decoration:none;border:1px solid var(--line-2);transition:all .2s">Browse vegetables</a>
         </div>
       </div>
       <aside class="hero-card">
@@ -607,115 +612,227 @@
       {
         region:"solan",emoji:"🌺",name:"Carnation",kind:"Most important base crop",score:6,
         quick:{growth:"5-6 months",harvest:"Every 7-10 days",revenue:"₹3.5-5.5L/year per tunnel"},
-        overview:["Core business crop for stable year-round tunnel performance","Ideal for phased expansion after baseline setup","Earlier ₹4-7L figure is upper-end; corrected range used below"],
+        overview:["Core business crop for stable year-round tunnel performance","Ideal for phased expansion after baseline setup","Highest revenue consistency in cool-climate tunnels"],
         climate:{ideal:"15-22°C",max:"28°C",humidity:"60-70%"},
         plantation:{units:"2200-2500 plants/tunnel",cost:"₹6-10/plant",total:"₹15K-20K"},
         water:"~2500-4000 L/day (2-4 L/m²/day)",
         nutrients:"₹3,000-6,000/month (NPK + micronutrients via fertigation)",
         lifecycle:{start:"5-6 months",life:"2-3 years production"},
+        price:"₹180-350/bundle",
         economics:{monthly:"₹30K-45K/month per tunnel",revenue:"₹3.5-5.5 lakh/year per tunnel",profit:"₹2-3.2 lakh/year per tunnel"},
         note:"Most consistent base crop for tunnel business",
-        images:[1,2,17,18,33]
+        images:[2,1,31,32]
       },
       {
         region:"pune",emoji:"🌹",name:"Rose",kind:"Pune main crop",score:7,
         quick:{growth:"4-5 months",harvest:"Daily",revenue:"₹3-6L/year per tunnel"},
-        overview:["Primary city-market crop with broad demand","Good for direct florist and event channels"],
+        overview:["Primary city-market crop with broad demand","Strong direct florist and event channels","Daily harvest enables steady cash flow"],
         climate:{ideal:"18-28°C",max:"32°C",humidity:"60-75%"},
         plantation:{units:"1500-1800 plants/tunnel",cost:"₹20-30/plant",total:"₹30K-50K initial"},
         water:"~3000-5000 L/day (3-5 L/m²/day)",
         nutrients:"₹4,000-8,000/month",
         lifecycle:{start:"4-5 months",life:"3-5 years"},
-        economics:{monthly:"Varies by market cycle",revenue:"₹3-6 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel"},
+        price:"₹6-15/stem",
+        economics:{monthly:"₹25K-50K/month per tunnel",revenue:"₹3-6 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel"},
         note:"Strong mainstream demand in Pune/Mumbai",
-        images:[9,10,25,26,41]
+        images:[27,25,26]
       },
       {
         region:"pune",emoji:"🌼",name:"Gerbera",kind:"Heat adapted protected crop",score:6,
         quick:{growth:"~3 months",harvest:"Daily",revenue:"₹3-5L/year per tunnel"},
-        overview:["Reliable protected flower for urban channels","Good continuity and predictable harvesting"],
+        overview:["Reliable protected flower for urban channels","Predictable daily harvesting","Strong florist channel demand"],
         climate:{ideal:"18-25°C",max:"30°C",humidity:"70-80%"},
-        plantation:{units:"1200-1500 plants/tunnel",cost:"₹25-40/plant",total:"Higher initial planting cost"},
+        plantation:{units:"1200-1500 plants/tunnel",cost:"₹25-40/plant",total:"₹35K-55K"},
         water:"~2-3 L/m²/day",
         nutrients:"₹4,000-7,000/month",
         lifecycle:{start:"~3 months",life:"2-3 years"},
-        economics:{monthly:"Varies by grade and demand",revenue:"₹3-5 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel"},
+        price:"₹4-10/stem",
+        economics:{monthly:"₹25K-40K/month per tunnel",revenue:"₹3-5 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel"},
         note:"Reliable florist staple crop",
-        images:[11,12,27,28,42]
+        images:[29,30,28]
       },
       {
         region:"solan",emoji:"🌷",name:"Oriental Lily",kind:"High risk high value",score:7,
         quick:{growth:"90-120 days",harvest:"Cycle based",revenue:"₹4-9L/year per tunnel"},
-        overview:["Premium crop with strong value potential","Cost-heavy due to bulb economics"],
+        overview:["Premium crop with strong value potential","Cost-heavy due to bulb economics","Best after baseline tunnels are stable"],
         climate:{ideal:"12-20°C",max:"25°C",humidity:"60-70%"},
         plantation:{units:"~8000-10000 bulbs/tunnel",cost:"₹25-40/bulb",total:"₹2-4 lakh bulb investment"},
         water:"~2000-3000 L/day",
         nutrients:"₹5,000-10,000/month",
         lifecycle:{start:"90-120 days",life:"Cycle production"},
+        price:"₹40-120/stem",
         economics:{monthly:"Cycle dependent",revenue:"₹4-9 lakh/year per tunnel",profit:"₹1.5-3.5 lakh/year per tunnel"},
         note:"High bulb cost reduces net margin",
-        images:[3,4,19,20,34]
+        images:[5,4,6]
       },
       {
-        region:"solan",emoji:"🌿",name:"Limonium",kind:"Dry flower market",score:6,
+        region:"solan",emoji:"🌿",name:"Limonium (Statice)",kind:"Dry flower market",score:6,
         quick:{growth:"4-5 months",harvest:"Continuous",revenue:"₹2.5-4.5L/year per tunnel"},
-        overview:["Works for both fresh and dry channels","Good shelf-life advantage"],
+        overview:["Works for both fresh and dry channels","Excellent shelf-life advantage","Low input cost relative to revenue"],
         climate:{ideal:"20-28°C",max:"32°C",humidity:"40-60%"},
         plantation:{units:"~1500-1800 plants/tunnel",cost:"₹5-10/plant",total:"Low-medium planting cost"},
         water:"~1500-2500 L/day",
         nutrients:"₹2,000-5,000/month",
         lifecycle:{start:"4-5 months",life:"Long season performance"},
-        economics:{monthly:"Varies by bunch grade",revenue:"₹2.5-4.5 lakh/year per tunnel",profit:"₹1-2.5 lakh/year per tunnel"},
+        price:"₹40-90/bunch",
+        economics:{monthly:"₹20K-35K/month per tunnel",revenue:"₹2.5-4.5 lakh/year per tunnel",profit:"₹1-2.5 lakh/year per tunnel"},
         note:"Strong dry flower optionality",
-        images:[5,21,22,35,36]
+        images:[14,13,15,43,44]
       },
       {
-        region:"solan",emoji:"🌿",name:"Gypsophila",kind:"Filler high demand",score:5,
+        region:"solan",emoji:"🌿",name:"Gypsophila",kind:"Bouquet filler",score:5,
         quick:{growth:"~4 months",harvest:"Continuous",revenue:"₹3-6L/year per tunnel"},
-        overview:["High bouquet demand filler crop","Performs well with consistent quality"],
+        overview:["High bouquet demand filler crop","Quality drives wholesale premium","Strong year-round demand floor"],
         climate:{ideal:"15-22°C",max:"28°C",humidity:"Moderate"},
-        plantation:{units:"~1200-1500 plants/tunnel",cost:"Varies",total:"Moderate planting cost"},
+        plantation:{units:"~1200-1500 plants/tunnel",cost:"₹15-25/plant",total:"₹20K-35K"},
         water:"~2000-3000 L/day",
-        nutrients:"Crop specific fertigation program",
+        nutrients:"₹2,500-5,000/month",
         lifecycle:{start:"~4 months",life:"Long season with flushes"},
-        economics:{monthly:"Demand-linked",revenue:"₹3-6 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel"},
+        price:"₹40-100/bunch",
+        economics:{monthly:"₹25K-50K/month per tunnel",revenue:"₹3-6 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel"},
         note:"Bouquet channel anchor filler",
-        images:[6,23,24,37,38]
+        images:[12,10,11]
       },
       {
-        region:"pune",emoji:"🌻",name:"Sunflower",kind:"Fast cash",score:6,
+        region:"pune",emoji:"🌻",name:"Sunflower",kind:"Fast cash cycle",score:6,
         quick:{growth:"60-70 days",harvest:"Fast turnover",revenue:"₹1.5-3L/year per tunnel"},
-        overview:["Low risk cycle crop","Useful for early cash rotation"],
+        overview:["Low risk cycle crop","Useful for early cash rotation","3-4 cycles per year possible"],
         climate:{ideal:"20-30°C",max:"35°C",humidity:"Broad adaptability"},
         plantation:{units:"Seed based cycles",cost:"₹1,000-3,000/cycle",total:"Low entry"},
         water:"~1500-2500 L/day",
         nutrients:"Basic cycle fertigation",
-        lifecycle:{start:"60-70 days",life:"Short repeat cycles"},
-        economics:{monthly:"Fast turnover model",revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹1-2 lakh/year per tunnel"},
+        lifecycle:{start:"60-70 days",life:"3-4 cycles/year"},
+        price:"₹3-8/stem",
+        economics:{monthly:"₹12K-25K/month per tunnel",revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹1-2 lakh/year per tunnel"},
         note:"Good starter for working-capital speed",
-        images:[13,29,30,43]
+        images:[37,38,39]
       },
       {
-        region:"pune",emoji:"🌼",name:"Marigold",kind:"Garland market",score:5,
+        region:"pune",emoji:"🌼",name:"Marigold",kind:"Garland & festival market",score:5,
         quick:{growth:"60-80 days",harvest:"Festival peaks",revenue:"₹1.5-3L/year per tunnel"},
-        overview:["Festival-driven upside","Easy to market in local garland channels"],
+        overview:["Festival-driven upside","Easy local garland channels","Strong event-timed returns"],
         climate:{ideal:"20-30°C",max:"35°C",humidity:"Broad adaptability"},
         plantation:{units:"Seed based",cost:"₹1,000-2,000",total:"Low seed cost"},
         water:"~2000-3000 L/day",
         nutrients:"Moderate cycle inputs",
         lifecycle:{start:"~2-3 months",life:"Cycle production"},
-        economics:{monthly:"Festival spikes possible",revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹80K-2 lakh/year per tunnel"},
+        price:"₹40-120/kg",
+        economics:{monthly:"₹12K-25K/month, festival spikes",revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹80K-2 lakh/year per tunnel"},
         note:"Strong event-timed returns",
-        images:[14,31,32,44]
+        images:[41,40,42]
       },
-      {region:"solan",emoji:"🌸",name:"Eustoma (Lisianthus)",kind:"Sensitive premium stem",score:6,quick:{growth:"5-6 months",harvest:"Multiple flushes",revenue:"₹2.5-5L/year per tunnel"},overview:["Premium but sensitive crop","Demands precise climate control"],price:"₹12-30/stem",economics:{revenue:"₹2.5-5 lakh/year per tunnel",profit:"₹1-2.5 lakh/year per tunnel"},note:"Sensitive crop management",images:[7,39]},
-      {region:"solan",emoji:"🌼",name:"Chrysanthemum",kind:"Seasonal festival crop",score:6,quick:{growth:"3-4 months",harvest:"Seasonal",revenue:"₹1.5-3L/year per tunnel"},overview:["Best for festival timing","Strong volume potential at peak"],price:"₹70-150/bundle",economics:{revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹80K-1.8 lakh/year per tunnel"},note:"Festival alignment",images:[8,40]},
-      {region:"solan",emoji:"🌺",name:"Gladiolus",kind:"Seasonal stem crop",score:5,quick:{growth:"3-4 months",harvest:"2-3 cycles/year",revenue:"₹1.5-3L/year per tunnel"},overview:["Good winter window crop","Stem quality drives premium pricing"],price:"₹5-12/stem",economics:{revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹80K-1.8 lakh/year per tunnel"},note:"Winter window focus",images:[15,45]},
-      {region:"solan",emoji:"🌸",name:"Alstroemeria",kind:"New important crop",score:7,quick:{growth:"Multi-season",harvest:"Repeat",revenue:"₹3-5L/year per tunnel"},overview:["Long-cycle commercial flower","Important expansion candidate"],price:"₹10-20/stem",economics:{revenue:"₹3-5 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel"},note:"Important expansion crop",images:[16,46]},
-      {region:"solan",emoji:"🌸",name:"Ranunculus / Anemone",kind:"Winter premium",score:6,quick:{growth:"Winter cycle",harvest:"Seasonal",revenue:"₹1-2L/year per tunnel"},overview:["Premium winter niche","Sensitive to temperature spikes"],price:"₹10-30/stem",economics:{revenue:"₹1-2 lakh/year per tunnel",profit:"Market timing dependent"},note:"Winter premium positioning",images:[47]},
-      {region:"pune",emoji:"🌺",name:"Carnation (Pune)",kind:"Heat managed variant",score:5,quick:{growth:"5-6 months",harvest:"Every 7-10 days",revenue:"₹3-4.5L/year per tunnel"},overview:["Lower yield under heat stress","Cooling strategy is critical"],price:"₹180-300/bundle",economics:{revenue:"₹3-4.5 lakh/year per tunnel",profit:"₹1.5-2.5 lakh/year per tunnel"},note:"Cooling quality is critical",images:[2,18]},
-      {region:"pune",emoji:"🌺",name:"Tuberose (Rajnigandha)",kind:"Fragrant cut flower",score:6,quick:{growth:"Medium cycle",harvest:"Regular sticks",revenue:"₹2-4L/year per tunnel"},overview:["Good local movement crop","Strong fragrance market"],price:"₹2-5/stick",economics:{revenue:"₹2-4 lakh/year per tunnel",profit:"₹1-2.5 lakh/year per tunnel"},note:"Fragrance market advantage",images:[21,34]},
-      {region:"pune",emoji:"🌼",name:"Jasmine (Mogra)",kind:"Loose flower premium",score:6,quick:{growth:"Seasonal/perennial",harvest:"Frequent picking",revenue:"₹2-4L/year per tunnel"},overview:["High value in puja/fragrance markets","Labor intensity is the lever"],price:"₹200-500/kg",economics:{revenue:"₹2-4 lakh/year per tunnel",profit:"Depends on picking labor efficiency"},note:"Labor-sensitive economics",images:[22,35]}
+      {
+        region:"solan",emoji:"🌸",name:"Eustoma (Lisianthus)",kind:"Sensitive premium stem",score:6,
+        quick:{growth:"5-6 months",harvest:"Multiple flushes",revenue:"₹2.5-5L/year per tunnel"},
+        overview:["Premium but sensitive crop","Demands precise climate control","Strong wedding & event demand"],
+        climate:{ideal:"15-22°C",max:"26°C",humidity:"60-70%"},
+        plantation:{units:"~1800-2200 plants/tunnel",cost:"₹15-25/plant",total:"₹30K-50K"},
+        water:"~2000-3000 L/day",
+        nutrients:"₹3,500-6,000/month",
+        lifecycle:{start:"5-6 months",life:"Multi-flush season"},
+        price:"₹12-30/stem",
+        economics:{monthly:"₹20K-40K/month per tunnel",revenue:"₹2.5-5 lakh/year per tunnel",profit:"₹1-2.5 lakh/year per tunnel"},
+        note:"Sensitive crop management",
+        images:[7,9,8]
+      },
+      {
+        region:"solan",emoji:"🌼",name:"Chrysanthemum",kind:"Seasonal festival crop",score:6,
+        quick:{growth:"3-4 months",harvest:"Seasonal",revenue:"₹1.5-3L/year per tunnel"},
+        overview:["Best for festival timing","Strong volume potential at peak","Multiple varieties for color spread"],
+        climate:{ideal:"15-22°C",max:"28°C",humidity:"60-75%"},
+        plantation:{units:"~2000-2500 plants/tunnel",cost:"₹4-8/plant",total:"₹12K-20K"},
+        water:"~2000-3000 L/day",
+        nutrients:"₹2,500-4,500/month",
+        lifecycle:{start:"3-4 months",life:"Seasonal cycles"},
+        price:"₹70-150/bundle",
+        economics:{monthly:"₹12K-25K/month, festival spikes",revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹80K-1.8 lakh/year per tunnel"},
+        note:"Festival alignment is the lever",
+        images:[17,36,16,18,35,34]
+      },
+      {
+        region:"solan",emoji:"🌺",name:"Gladiolus",kind:"Seasonal stem crop",score:5,
+        quick:{growth:"3-4 months",harvest:"2-3 cycles/year",revenue:"₹1.5-3L/year per tunnel"},
+        overview:["Good winter window crop","Stem quality drives premium pricing","Lower input intensity"],
+        climate:{ideal:"15-25°C",max:"30°C",humidity:"60-70%"},
+        plantation:{units:"~5000-7000 corms/tunnel",cost:"₹3-6/corm",total:"₹18K-35K"},
+        water:"~2000-3000 L/day",
+        nutrients:"₹2,000-4,000/month",
+        lifecycle:{start:"3-4 months",life:"2-3 cycles/year"},
+        price:"₹5-12/stem",
+        economics:{monthly:"₹12K-25K/month per tunnel",revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹80K-1.8 lakh/year per tunnel"},
+        note:"Winter window focus",
+        images:[21,47,20,19,45]
+      },
+      {
+        region:"solan",emoji:"🌸",name:"Alstroemeria",kind:"Long-cycle expansion crop",score:7,
+        quick:{growth:"4-6 months",harvest:"Repeat flushes",revenue:"₹3-5L/year per tunnel"},
+        overview:["Long-cycle commercial flower","Important expansion candidate","Good wholesale demand"],
+        climate:{ideal:"15-22°C",max:"25°C",humidity:"60-70%"},
+        plantation:{units:"~1500-2000 plants/tunnel",cost:"₹40-80/plant",total:"₹80K-1.5L"},
+        water:"~2500-3500 L/day",
+        nutrients:"₹4,000-7,000/month",
+        lifecycle:{start:"4-6 months",life:"4-5 years productive"},
+        price:"₹10-20/stem",
+        economics:{monthly:"₹25K-40K/month per tunnel",revenue:"₹3-5 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel"},
+        note:"Image is reference; plant resembles Lisianthus visually",
+        images:[9,5]
+      },
+      {
+        region:"solan",emoji:"🌸",name:"Ranunculus / Anemone",kind:"Winter premium niche",score:6,
+        quick:{growth:"Winter cycle",harvest:"Seasonal",revenue:"₹1-2L/year per tunnel"},
+        overview:["Premium winter niche","Sensitive to temperature spikes","High per-stem realization"],
+        climate:{ideal:"10-18°C",max:"22°C",humidity:"60-70%"},
+        plantation:{units:"~3000-4000 corms/tunnel",cost:"₹8-15/corm",total:"₹30K-60K"},
+        water:"~1500-2500 L/day",
+        nutrients:"₹3,000-5,000/month",
+        lifecycle:{start:"Winter only",life:"Seasonal one-shot"},
+        price:"₹10-30/stem",
+        economics:{monthly:"Winter window only",revenue:"₹1-2 lakh/year per tunnel",profit:"₹50K-1.2 lakh/year per tunnel"},
+        note:"Image is a stand-in; very narrow seasonal window",
+        images:[47,5]
+      },
+      {
+        region:"pune",emoji:"🌺",name:"Carnation (Pune)",kind:"Heat managed variant",score:5,
+        quick:{growth:"5-6 months",harvest:"Every 7-10 days",revenue:"₹3-4.5L/year per tunnel"},
+        overview:["Lower yield under heat stress","Cooling strategy is critical","Use shade nets + foggers"],
+        climate:{ideal:"18-24°C",max:"30°C with cooling",humidity:"60-70%"},
+        plantation:{units:"2000-2300 plants/tunnel",cost:"₹6-10/plant",total:"₹14K-22K"},
+        water:"~3000-4500 L/day",
+        nutrients:"₹3,500-6,500/month",
+        lifecycle:{start:"5-6 months",life:"2-3 years"},
+        price:"₹180-300/bundle",
+        economics:{monthly:"₹25K-38K/month per tunnel",revenue:"₹3-4.5 lakh/year per tunnel",profit:"₹1.5-2.5 lakh/year per tunnel"},
+        note:"Cooling quality is critical",
+        images:[32,31,2]
+      },
+      {
+        region:"pune",emoji:"🤍",name:"Tuberose (Rajnigandha)",kind:"Fragrant cut flower",score:6,
+        quick:{growth:"3-4 months",harvest:"Regular sticks",revenue:"₹2-4L/year per tunnel"},
+        overview:["Strong local movement crop","Fragrance market advantage","Lower setup intensity"],
+        climate:{ideal:"20-30°C",max:"35°C",humidity:"60-80%"},
+        plantation:{units:"~6000-8000 bulbs/tunnel",cost:"₹3-6/bulb",total:"₹20K-40K"},
+        water:"~2500-3500 L/day",
+        nutrients:"₹2,500-4,500/month",
+        lifecycle:{start:"3-4 months",life:"2-3 cycles per planting"},
+        price:"₹2-5/stick",
+        economics:{monthly:"₹15K-30K/month per tunnel",revenue:"₹2-4 lakh/year per tunnel",profit:"₹1-2.5 lakh/year per tunnel"},
+        note:"Image is a white-flower stand-in",
+        images:[7,12]
+      },
+      {
+        region:"pune",emoji:"🤍",name:"Jasmine (Mogra)",kind:"Loose flower premium",score:6,
+        quick:{growth:"Seasonal/perennial",harvest:"Frequent picking",revenue:"₹2-4L/year per tunnel"},
+        overview:["High value in puja & fragrance markets","Labor intensity is the lever","Strong summer demand"],
+        climate:{ideal:"22-32°C",max:"38°C",humidity:"60-80%"},
+        plantation:{units:"~800-1200 plants/tunnel",cost:"₹35-60/plant",total:"₹35K-60K"},
+        water:"~2000-3000 L/day",
+        nutrients:"₹2,500-4,500/month",
+        lifecycle:{start:"6-9 months to peak",life:"Perennial 4-6 years"},
+        price:"₹200-500/kg",
+        economics:{monthly:"₹15K-35K/month, summer peaks",revenue:"₹2-4 lakh/year per tunnel",profit:"₹80K-2 lakh/year per tunnel"},
+        note:"Image is a white-flower stand-in",
+        images:[12,7]
+      }
     ];
 
     const cardsEl = document.getElementById("cards");

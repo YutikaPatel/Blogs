@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tunnel Planner | Yutika Journal</title>
+  <meta name="description" content="Plan your polyhouse mix - configure tunnel size and count, allocate flowers and vegetables, and see real-time revenue, profit, water, and ROI charts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root{
+      --bg:#f6f3ec;
+      --surface:#ffffff;
+      --ink:#1a201a;
+      --ink-2:#33402f;
+      --muted:#6b7763;
+      --line:#e3dfd2;
+      --line-2:#cdd5c2;
+      --brand:#1f5236;
+      --brand-2:#2d7a52;
+      --brand-soft:#e8f0e6;
+      --warm:#a04a2c;
+      --warm-soft:#f6e6dc;
+      --gold:#b58a3a;
+      --danger:#a83a3a;
+      --shadow-sm:0 4px 14px rgba(26,32,26,.06);
+      --shadow:0 18px 44px rgba(26,32,26,.10);
+      --shadow-lg:0 30px 70px rgba(26,32,26,.18);
+      --r-sm:10px;
+      --r-md:16px;
+      --r-lg:22px;
+      --r-xl:28px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{font-family:"Inter","Segoe UI",sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.6}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit}
+    input,select{font-family:inherit;font-size:inherit;color:inherit}
+    h1,h2,h3,h4{font-family:"Fraunces",serif;font-weight:600;letter-spacing:-0.01em;margin:0;color:var(--ink)}
+
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(14px);background:rgba(246,243,236,.78);border-bottom:1px solid rgba(0,0,0,.06)}
+    .nav-inner{max-width:1480px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:10px;font-family:"Fraunces",serif;font-weight:600;font-size:1.18rem}
+    .brand-mark{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#f4d6c1 0,#a04a2c 55%,#5e2614 100%);box-shadow:inset 0 0 0 2px #fff,0 4px 10px rgba(160,74,44,.35)}
+    .nav-links{display:flex;gap:22px;font-size:.92rem;color:var(--ink-2);font-weight:500}
+    .nav-links a{position:relative;padding:6px 2px}
+    .nav-links a:hover{color:var(--brand)}
+    .nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:var(--brand);border-radius:2px}
+
+    .wrap{max-width:1480px;margin:0 auto;padding:0 22px 90px}
+    .crumb{display:inline-flex;align-items:center;gap:8px;margin:24px 0 14px;font-size:.85rem;color:var(--muted);font-weight:500}
+    .crumb a{color:var(--brand);font-weight:600}
+    .crumb a:hover{text-decoration:underline}
+
+    .hero{padding:8px 0 22px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brand)}
+    .eyebrow::before{content:"";width:28px;height:1px;background:var(--brand)}
+    .hero h1{font-size:clamp(2.2rem,4.2vw,3.6rem);line-height:1.05;letter-spacing:-0.02em;margin:14px 0 12px}
+    .hero h1 em{font-style:italic;color:var(--warm);font-weight:500}
+    .hero p.lede{font-size:1rem;color:var(--muted);line-height:1.7;max-width:720px;margin:0}
+
+    /* Layout */
+    .planner{display:grid;grid-template-columns:380px 1fr;gap:24px;margin-top:28px;align-items:start}
+    .col-config{position:sticky;top:80px;display:grid;gap:16px}
+    .col-results{display:grid;gap:16px}
+
+    .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:22px;box-shadow:var(--shadow-sm)}
+    .panel h3{font-size:1.05rem;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+    .panel h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--brand);display:inline-block}
+
+    /* Form */
+    .field{display:grid;gap:6px;margin-bottom:14px}
+    .field label{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+    .field input,.field select{
+      padding:11px 14px;border:1px solid var(--line-2);border-radius:var(--r-sm);background:#fafaf3;
+      transition:border-color .2s,background .2s;
+    }
+    .field input:focus,.field select:focus{outline:none;border-color:var(--brand);background:#fff}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .field-help{font-size:.78rem;color:var(--muted);margin-top:2px}
+
+    /* Crop mix */
+    .picker-row{display:flex;gap:8px;margin-bottom:12px}
+    .picker-row select{flex:1}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:11px 16px;border-radius:var(--r-sm);font-weight:600;font-size:.9rem;
+      transition:all .2s ease;cursor:pointer;border:1px solid transparent;
+    }
+    .btn-primary{background:var(--ink);color:#fff}
+    .btn-primary:hover{background:var(--brand);transform:translateY(-1px)}
+    .btn-ghost{background:#fafaf3;color:var(--ink);border-color:var(--line-2)}
+    .btn-ghost:hover{border-color:var(--ink);background:#fff}
+    .btn-danger{background:transparent;color:var(--danger);padding:6px 8px;border-radius:6px;font-size:.78rem}
+    .btn-danger:hover{background:#fdf0f0}
+
+    .mix{display:grid;gap:10px;margin-top:12px}
+    .mix-item{
+      display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:center;
+      padding:10px 12px;border:1px solid var(--line);border-radius:var(--r-sm);
+      background:#fafaf3;
+    }
+    .mix-thumb{width:38px;height:38px;border-radius:8px;overflow:hidden;background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:1.4rem}
+    .mix-thumb img{width:100%;height:100%;object-fit:cover}
+    .mix-info{min-width:0}
+    .mix-info .n{font-weight:600;font-size:.92rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .mix-info .m{font-size:.74rem;color:var(--muted);font-weight:500}
+    .mix-controls{display:flex;align-items:center;gap:10px}
+    .mix-pct{
+      width:70px;text-align:right;
+      padding:6px 8px;border:1px solid var(--line-2);border-radius:6px;background:#fff;
+      font-weight:600;font-size:.86rem;
+    }
+    .mix-pct:focus{outline:none;border-color:var(--brand)}
+
+    /* Allocation summary */
+    .alloc-bar{
+      margin-top:14px;height:10px;background:#ece8d6;border-radius:999px;overflow:hidden;
+      display:flex;
+    }
+    .alloc-seg{height:100%;transition:all .25s ease}
+    .alloc-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:.82rem;color:var(--muted);font-weight:600}
+    .alloc-meta .alloc-status{padding:3px 10px;border-radius:999px;font-size:.72rem;letter-spacing:.06em}
+    .alloc-status.ok{background:var(--brand-soft);color:var(--brand)}
+    .alloc-status.over{background:#fde6e6;color:var(--danger)}
+    .alloc-status.under{background:#fdf2dc;color:var(--warm)}
+
+    /* Results - KPI tiles */
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .kpi{
+      background:var(--surface);border:1px solid var(--line);
+      border-radius:var(--r-lg);padding:18px;box-shadow:var(--shadow-sm);
+      position:relative;overflow:hidden;
+    }
+    .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--brand)}
+    .kpi.warm::before{background:var(--warm)}
+    .kpi.gold::before{background:var(--gold)}
+    .kpi.danger::before{background:var(--danger)}
+    .kpi .kpi-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px}
+    .kpi .kpi-value{font-family:"Fraunces",serif;font-size:1.8rem;font-weight:600;line-height:1.05;color:var(--ink)}
+    .kpi .kpi-sub{font-size:.78rem;color:var(--muted);margin-top:4px}
+    .kpi.range .kpi-value{font-size:1.4rem}
+
+    /* Charts */
+    .charts{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .chart-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;box-shadow:var(--shadow-sm)}
+    .chart-card h4{font-size:.95rem;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+    .chart-card h4 .meta{font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+    .chart-wrap{position:relative;height:280px}
+
+    /* Per-crop table */
+    .breakdown{overflow:auto}
+    table.bd{width:100%;border-collapse:collapse;font-size:.88rem;min-width:700px}
+    .bd th{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;font-family:"Inter",sans-serif}
+    .bd td{padding:13px 8px;border-bottom:1px solid var(--line)}
+    .bd tr:last-child td{border-bottom:0}
+    .bd .crop-cell{display:flex;align-items:center;gap:10px}
+    .bd .crop-thumb{width:32px;height:32px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a1a1a;font-size:1.1rem;flex-shrink:0}
+    .bd .crop-thumb img{width:100%;height:100%;object-fit:cover}
+    .bd .num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+    .bd .pos{color:var(--brand)}
+
+    .empty{text-align:center;padding:48px 20px;color:var(--muted);border:1px dashed var(--line-2);border-radius:var(--r-lg);background:rgba(255,255,255,.5)}
+
+    @media (max-width:1080px){
+      .planner{grid-template-columns:1fr}
+      .col-config{position:static}
+      .charts{grid-template-columns:1fr}
+      .kpis{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:780px){
+      .nav-links{display:none}
+      .field-row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark"></span>
+        <span>Yutika &middot; Journal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../flower-profit-model/">Flowers</a>
+        <a href="../vegetable-profit-model/">Vegetables</a>
+        <a href="./" class="active">Tunnel Planner</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="crumb">
+      <a href="../index.html">&larr; Journal</a>
+      <span>&middot;</span>
+      <span>Tunnel Planner</span>
+    </div>
+
+    <section class="hero">
+      <span class="eyebrow">Mix &middot; Match &middot; Model</span>
+      <h1>Plan your tunnels &mdash; <em>flowers + vegetables</em>, real numbers.</h1>
+      <p class="lede">Configure your tunnel dimensions, set how many you operate, and allocate crops by percentage. Watch revenue, profit, water, and payback update live as you mix flowers and vegetables.</p>
+    </section>
+
+    <div class="planner">
+      <!-- Configuration column -->
+      <aside class="col-config">
+        <div class="panel">
+          <h3><span class="dot"></span>Tunnel configuration</h3>
+          <div class="field-row">
+            <div class="field">
+              <label for="tunnelLen">Length (m)</label>
+              <input id="tunnelLen" type="number" min="5" max="200" value="40" step="1">
+            </div>
+            <div class="field">
+              <label for="tunnelWid">Width (m)</label>
+              <input id="tunnelWid" type="number" min="3" max="40" value="8" step="0.5">
+            </div>
+          </div>
+          <div class="field">
+            <label for="tunnelCount">Number of tunnels</label>
+            <input id="tunnelCount" type="number" min="1" max="200" value="2" step="1">
+          </div>
+          <div class="field">
+            <label for="setupCost">Setup cost (&#8377; per sq m)</label>
+            <input id="setupCost" type="number" min="100" max="5000" value="850" step="10">
+            <div class="field-help">Polyhouse civil + frame + cover. Typical: &#8377;700-1200/m&sup2;.</div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>Total area</label>
+              <input id="totalArea" type="text" value="" readonly style="background:#f0eee0">
+            </div>
+            <div class="field">
+              <label>Setup outlay</label>
+              <input id="totalSetup" type="text" value="" readonly style="background:#f0eee0">
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3><span class="dot" style="background:var(--warm)"></span>Crop mix</h3>
+          <div class="picker-row">
+            <select id="cropPicker">
+              <option value="">Select a crop to add&hellip;</option>
+            </select>
+            <button class="btn btn-primary" id="addCrop">Add</button>
+          </div>
+          <div class="mix" id="mixList"></div>
+          <div class="alloc-bar" id="allocBar"></div>
+          <div class="alloc-meta">
+            <span id="allocText">0% allocated</span>
+            <span class="alloc-status under" id="allocStatus">No crops added</span>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-ghost" id="presetFlowers">Preset: Flower-heavy</button>
+            <button class="btn btn-ghost" id="presetVeg">Preset: Veg-heavy</button>
+            <button class="btn btn-ghost" id="presetMix">Preset: Mixed</button>
+            <button class="btn btn-ghost" id="clearAll">Clear</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Results column -->
+      <div class="col-results">
+        <div class="kpis">
+          <div class="kpi">
+            <div class="kpi-label">Annual revenue (mid)</div>
+            <div class="kpi-value" id="kpiRevenue">&#8377;0</div>
+            <div class="kpi-sub" id="kpiRevenueRange">range &mdash;</div>
+          </div>
+          <div class="kpi warm">
+            <div class="kpi-label">Annual profit (mid)</div>
+            <div class="kpi-value" id="kpiProfit">&#8377;0</div>
+            <div class="kpi-sub" id="kpiProfitRange">range &mdash;</div>
+          </div>
+          <div class="kpi gold">
+            <div class="kpi-label">Payback period</div>
+            <div class="kpi-value" id="kpiPayback">&mdash;</div>
+            <div class="kpi-sub">setup &divide; annual profit</div>
+          </div>
+          <div class="kpi danger">
+            <div class="kpi-label">Water need</div>
+            <div class="kpi-value" id="kpiWater">0 L/d</div>
+            <div class="kpi-sub" id="kpiWaterMonth">&mdash;/month</div>
+          </div>
+        </div>
+
+        <div class="charts">
+          <div class="chart-card">
+            <h4>Revenue contribution by crop <span class="meta">Donut</span></h4>
+            <div class="chart-wrap"><canvas id="chartRevenue"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h4>Profit per crop (annual) <span class="meta">Bar</span></h4>
+            <div class="chart-wrap"><canvas id="chartProfit"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h4>Setup cost vs annual profit <span class="meta">Compare</span></h4>
+            <div class="chart-wrap"><canvas id="chartSetup"></canvas></div>
+          </div>
+          <div class="chart-card">
+            <h4>Monthly cashflow estimate <span class="meta">Trend</span></h4>
+            <div class="chart-wrap"><canvas id="chartMonthly"></canvas></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3><span class="dot" style="background:var(--gold)"></span>Per-crop breakdown</h3>
+          <div class="breakdown">
+            <table class="bd" id="breakdownTable">
+              <thead>
+                <tr>
+                  <th>Crop</th>
+                  <th>Allocation</th>
+                  <th class="num">Area (m&sup2;)</th>
+                  <th class="num">Tunnels eq.</th>
+                  <th class="num">Revenue / yr</th>
+                  <th class="num">Profit / yr</th>
+                  <th class="num">Setup</th>
+                </tr>
+              </thead>
+              <tbody id="bdBody"></tbody>
+            </table>
+            <div id="bdEmpty" class="empty">Add crops to see the per-crop breakdown.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Crop economics data (numeric ranges) - both flowers and vegetables
+    // Per-tunnel basis: 1200 sq ft ~= 111.5 m2
+    const TUNNEL_BASE_M2 = 111.5;
+
+    const crops = [
+      // Flowers
+      {id:"carnation",cat:"flower",region:"solan",emoji:"🌺",name:"Carnation",img:2,
+        revenueLow:350000,revenueHigh:550000,profitLow:200000,profitHigh:320000,
+        setupLow:15000,setupHigh:20000,waterLow:2500,waterHigh:4000},
+      {id:"rose",cat:"flower",region:"pune",emoji:"🌹",name:"Rose",img:27,
+        revenueLow:300000,revenueHigh:600000,profitLow:150000,profitHigh:300000,
+        setupLow:30000,setupHigh:50000,waterLow:3000,waterHigh:5000},
+      {id:"gerbera",cat:"flower",region:"pune",emoji:"🌼",name:"Gerbera",img:29,
+        revenueLow:300000,revenueHigh:500000,profitLow:150000,profitHigh:300000,
+        setupLow:35000,setupHigh:55000,waterLow:2000,waterHigh:3000},
+      {id:"oriental_lily",cat:"flower",region:"solan",emoji:"🌷",name:"Oriental Lily",img:5,
+        revenueLow:400000,revenueHigh:900000,profitLow:150000,profitHigh:350000,
+        setupLow:200000,setupHigh:400000,waterLow:2000,waterHigh:3000},
+      {id:"limonium",cat:"flower",region:"solan",emoji:"🌿",name:"Limonium (Statice)",img:14,
+        revenueLow:250000,revenueHigh:450000,profitLow:100000,profitHigh:250000,
+        setupLow:8000,setupHigh:15000,waterLow:1500,waterHigh:2500},
+      {id:"gypsophila",cat:"flower",region:"solan",emoji:"🌿",name:"Gypsophila",img:12,
+        revenueLow:300000,revenueHigh:600000,profitLow:150000,profitHigh:300000,
+        setupLow:20000,setupHigh:35000,waterLow:2000,waterHigh:3000},
+      {id:"sunflower",cat:"flower",region:"pune",emoji:"🌻",name:"Sunflower",img:37,
+        revenueLow:150000,revenueHigh:300000,profitLow:100000,profitHigh:200000,
+        setupLow:4000,setupHigh:12000,waterLow:1500,waterHigh:2500},
+      {id:"marigold",cat:"flower",region:"pune",emoji:"🌼",name:"Marigold",img:41,
+        revenueLow:150000,revenueHigh:300000,profitLow:80000,profitHigh:200000,
+        setupLow:3000,setupHigh:8000,waterLow:2000,waterHigh:3000},
+      {id:"eustoma",cat:"flower",region:"solan",emoji:"🌸",name:"Eustoma (Lisianthus)",img:7,
+        revenueLow:250000,revenueHigh:500000,profitLow:100000,profitHigh:250000,
+        setupLow:30000,setupHigh:50000,waterLow:2000,waterHigh:3000},
+      {id:"chrysanthemum",cat:"flower",region:"solan",emoji:"🌼",name:"Chrysanthemum",img:17,
+        revenueLow:150000,revenueHigh:300000,profitLow:80000,profitHigh:180000,
+        setupLow:12000,setupHigh:20000,waterLow:2000,waterHigh:3000},
+      {id:"gladiolus",cat:"flower",region:"solan",emoji:"🌺",name:"Gladiolus",img:21,
+        revenueLow:150000,revenueHigh:300000,profitLow:80000,profitHigh:180000,
+        setupLow:18000,setupHigh:35000,waterLow:2000,waterHigh:3000},
+      {id:"alstroemeria",cat:"flower",region:"solan",emoji:"🌸",name:"Alstroemeria",img:9,
+        revenueLow:300000,revenueHigh:500000,profitLow:150000,profitHigh:300000,
+        setupLow:80000,setupHigh:150000,waterLow:2500,waterHigh:3500},
+      {id:"tuberose",cat:"flower",region:"pune",emoji:"🤍",name:"Tuberose",img:7,
+        revenueLow:200000,revenueHigh:400000,profitLow:100000,profitHigh:250000,
+        setupLow:20000,setupHigh:40000,waterLow:2500,waterHigh:3500},
+      {id:"jasmine",cat:"flower",region:"pune",emoji:"🤍",name:"Jasmine (Mogra)",img:12,
+        revenueLow:200000,revenueHigh:400000,profitLow:80000,profitHigh:200000,
+        setupLow:35000,setupHigh:60000,waterLow:2000,waterHigh:3000},
+
+      // Vegetables - leafy
+      {id:"spinach",cat:"veg",region:"any",emoji:"🥬",name:"Spinach (Palak)",img:33,
+        revenueLow:150000,revenueHigh:250000,profitLow:80000,profitHigh:150000,
+        setupLow:8000,setupHigh:12000,waterLow:1500,waterHigh:2000},
+      {id:"methi",cat:"veg",region:"any",emoji:"🌿",name:"Fenugreek (Methi)",img:null,
+        revenueLow:120000,revenueHigh:200000,profitLow:70000,profitHigh:120000,
+        setupLow:6000,setupHigh:10000,waterLow:1500,waterHigh:2000},
+      {id:"coriander",cat:"veg",region:"any",emoji:"🌱",name:"Coriander",img:null,
+        revenueLow:180000,revenueHigh:300000,profitLow:100000,profitHigh:180000,
+        setupLow:8000,setupHigh:15000,waterLow:1800,waterHigh:2500},
+      {id:"lettuce",cat:"veg",region:"any",emoji:"🥗",name:"Lettuce",img:33,
+        revenueLow:250000,revenueHigh:450000,profitLow:120000,profitHigh:250000,
+        setupLow:10000,setupHigh:18000,waterLow:2000,waterHigh:2800},
+      {id:"kale",cat:"veg",region:"any",emoji:"🥬",name:"Kale",img:22,
+        revenueLow:250000,revenueHigh:400000,profitLow:120000,profitHigh:220000,
+        setupLow:8000,setupHigh:14000,waterLow:1800,waterHigh:2500},
+      {id:"amaranth",cat:"veg",region:"any",emoji:"🍃",name:"Amaranth (Lal Saag)",img:null,
+        revenueLow:100000,revenueHigh:180000,profitLow:50000,profitHigh:100000,
+        setupLow:5000,setupHigh:8000,waterLow:1500,waterHigh:2000},
+      {id:"spring_onion",cat:"veg",region:"any",emoji:"🧅",name:"Spring Onion",img:null,
+        revenueLow:150000,revenueHigh:250000,profitLow:80000,profitHigh:140000,
+        setupLow:7000,setupHigh:12000,waterLow:1800,waterHigh:2500},
+      {id:"microgreens",cat:"veg",region:"any",emoji:"🌱",name:"Microgreens",img:33,
+        revenueLow:400000,revenueHigh:800000,profitLow:250000,profitHigh:400000,
+        setupLow:40000,setupHigh:90000,waterLow:500,waterHigh:1000},
+      {id:"mint",cat:"veg",region:"any",emoji:"🌿",name:"Mint (Pudina)",img:null,
+        revenueLow:150000,revenueHigh:250000,profitLow:80000,profitHigh:150000,
+        setupLow:8000,setupHigh:15000,waterLow:2000,waterHigh:2800},
+      {id:"basil",cat:"veg",region:"any",emoji:"🌿",name:"Basil (Italian)",img:null,
+        revenueLow:200000,revenueHigh:350000,profitLow:100000,profitHigh:200000,
+        setupLow:12000,setupHigh:22000,waterLow:2000,waterHigh:2800},
+
+      // Vegetables - vine
+      {id:"tomato",cat:"veg",region:"any",emoji:"🍅",name:"Tomato (Hybrid)",img:null,
+        revenueLow:300000,revenueHigh:500000,profitLow:150000,profitHigh:280000,
+        setupLow:18000,setupHigh:35000,waterLow:3000,waterHigh:4500},
+      {id:"cherry_tomato",cat:"veg",region:"any",emoji:"🍒",name:"Cherry Tomato",img:null,
+        revenueLow:400000,revenueHigh:700000,profitLow:200000,profitHigh:400000,
+        setupLow:25000,setupHigh:45000,waterLow:3000,waterHigh:4200},
+      {id:"cucumber",cat:"veg",region:"any",emoji:"🥒",name:"Cucumber",img:null,
+        revenueLow:250000,revenueHigh:450000,profitLow:130000,profitHigh:250000,
+        setupLow:18000,setupHigh:32000,waterLow:3000,waterHigh:4500},
+      {id:"capsicum",cat:"veg",region:"any",emoji:"🫑",name:"Coloured Capsicum",img:null,
+        revenueLow:400000,revenueHigh:700000,profitLow:200000,profitHigh:380000,
+        setupLow:25000,setupHigh:45000,waterLow:3500,waterHigh:5000},
+      {id:"bottle_gourd",cat:"veg",region:"any",emoji:"🍈",name:"Bottle Gourd",img:null,
+        revenueLow:120000,revenueHigh:200000,profitLow:70000,profitHigh:120000,
+        setupLow:5000,setupHigh:10000,waterLow:2500,waterHigh:3500},
+      {id:"bitter_gourd",cat:"veg",region:"any",emoji:"🫛",name:"Bitter Gourd",img:null,
+        revenueLow:150000,revenueHigh:280000,profitLow:80000,profitHigh:160000,
+        setupLow:6000,setupHigh:12000,waterLow:2500,waterHigh:3500},
+      {id:"french_beans",cat:"veg",region:"any",emoji:"🫘",name:"French Beans",img:null,
+        revenueLow:180000,revenueHigh:300000,profitLow:100000,profitHigh:180000,
+        setupLow:6000,setupHigh:10000,waterLow:2500,waterHigh:3500},
+      {id:"strawberry",cat:"veg",region:"any",emoji:"🍓",name:"Strawberry",img:null,
+        revenueLow:500000,revenueHigh:800000,profitLow:250000,profitHigh:400000,
+        setupLow:50000,setupHigh:90000,waterLow:2500,waterHigh:3500}
+    ];
+
+    function imagePath(n){return `../posts/data/images/flower_catalog_${String(n).padStart(3,"0")}.jpeg`}
+    function fmtINR(v){
+      if (v === null || v === undefined || isNaN(v)) return "—";
+      if (v >= 10000000) return "₹" + (v/10000000).toFixed(2) + " Cr";
+      if (v >= 100000) return "₹" + (v/100000).toFixed(2) + " L";
+      if (v >= 1000) return "₹" + (v/1000).toFixed(0) + "K";
+      return "₹" + Math.round(v);
+    }
+    function fmtNum(v){return Math.round(v).toLocaleString("en-IN")}
+    function midpoint(lo,hi){return (lo+hi)/2}
+
+    // State
+    const state = {
+      tunnelLen: 40,
+      tunnelWid: 8,
+      tunnelCount: 2,
+      setupCostPerM2: 850,
+      mix: [] // {id, pct}
+    };
+
+    // Picker
+    const picker = document.getElementById("cropPicker");
+    function buildPicker(){
+      const optgroupFlower = `<optgroup label="🌸 Flowers">` +
+        crops.filter(c=>c.cat==="flower").map(c=>`<option value="${c.id}">${c.emoji} ${c.name}${c.region!=="any"?" — "+(c.region==="solan"?"Solan":"Pune"):""}</option>`).join("") + `</optgroup>`;
+      const optgroupVeg = `<optgroup label="🥬 Vegetables">` +
+        crops.filter(c=>c.cat==="veg").map(c=>`<option value="${c.id}">${c.emoji} ${c.name}</option>`).join("") + `</optgroup>`;
+      picker.innerHTML = `<option value="">Select a crop to add…</option>` + optgroupFlower + optgroupVeg;
+    }
+    buildPicker();
+
+    // DOM refs
+    const $ = id => document.getElementById(id);
+    const lenIn = $("tunnelLen"), widIn = $("tunnelWid"), countIn = $("tunnelCount"), setupIn = $("setupCost");
+    const totalAreaEl = $("totalArea"), totalSetupEl = $("totalSetup");
+    const mixListEl = $("mixList"), allocBarEl = $("allocBar"), allocTextEl = $("allocText"), allocStatusEl = $("allocStatus");
+    const bdBody = $("bdBody"), bdEmpty = $("bdEmpty");
+
+    // Charts
+    const palette = ["#1f5236","#a04a2c","#b58a3a","#2c5e1f","#7a4f1a","#5e8b3d","#c4794d","#d4a857","#3a7050","#8b5a2b","#a8c43a","#e94560","#5dac3a","#f6b32f","#7ab048","#c64554"];
+    const chartRev = new Chart($("chartRevenue"), {
+      type:"doughnut",
+      data:{labels:[],datasets:[{data:[],backgroundColor:palette,borderWidth:2,borderColor:"#fff"}]},
+      options:{plugins:{legend:{position:"right",labels:{font:{family:"Inter",size:12},boxWidth:12}}},cutout:"62%",responsive:true,maintainAspectRatio:false}
+    });
+    const chartProfit = new Chart($("chartProfit"), {
+      type:"bar",
+      data:{labels:[],datasets:[{label:"Profit",data:[],backgroundColor:"#1f5236",borderRadius:6}]},
+      options:{indexAxis:"y",plugins:{legend:{display:false}},scales:{x:{ticks:{callback:v=>fmtINR(v),font:{family:"Inter"}},grid:{color:"#e8e3d2"}},y:{ticks:{font:{family:"Inter",size:11}},grid:{display:false}}},responsive:true,maintainAspectRatio:false}
+    });
+    const chartSetup = new Chart($("chartSetup"), {
+      type:"bar",
+      data:{labels:["Setup cost","Annual profit (mid)","Year 1 net","Year 2 net"],datasets:[{label:"₹",data:[0,0,0,0],backgroundColor:["#a04a2c","#1f5236","#b58a3a","#2d7a52"],borderRadius:6}]},
+      options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>fmtINR(v),font:{family:"Inter"}},grid:{color:"#e8e3d2"}},x:{ticks:{font:{family:"Inter",size:11}},grid:{display:false}}},responsive:true,maintainAspectRatio:false}
+    });
+    const chartMonthly = new Chart($("chartMonthly"), {
+      type:"line",
+      data:{labels:["Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar"],
+            datasets:[{label:"Cashflow",data:Array(12).fill(0),fill:true,borderColor:"#1f5236",backgroundColor:"rgba(31,82,54,.12)",tension:.35,pointRadius:3,pointBackgroundColor:"#1f5236"}]},
+      options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>fmtINR(v),font:{family:"Inter"}},grid:{color:"#e8e3d2"}},x:{ticks:{font:{family:"Inter",size:11}},grid:{display:false}}},responsive:true,maintainAspectRatio:false}
+    });
+
+    function getCrop(id){return crops.find(c=>c.id===id)}
+
+    function renderMix(){
+      if (!state.mix.length){
+        mixListEl.innerHTML = `<div class="empty" style="padding:18px;font-size:.86rem">No crops added yet. Pick one above or use a preset.</div>`;
+      } else {
+        mixListEl.innerHTML = state.mix.map((m,i) => {
+          const c = getCrop(m.id);
+          if (!c) return "";
+          const thumb = c.img
+            ? `<img src="${imagePath(c.img)}" alt="">`
+            : c.emoji;
+          return `
+            <div class="mix-item">
+              <div class="mix-thumb">${thumb}</div>
+              <div class="mix-info">
+                <div class="n">${c.name}</div>
+                <div class="m">${c.cat==="flower" ? "Flower":"Vegetable"} &middot; ${fmtINR(midpoint(c.revenueLow,c.revenueHigh))}/yr per tunnel</div>
+              </div>
+              <div class="mix-controls">
+                <input class="mix-pct" type="number" min="0" max="100" step="1" value="${m.pct}" data-i="${i}">
+                <span style="color:var(--muted);font-weight:600;font-size:.84rem">%</span>
+                <button class="btn btn-danger" data-remove="${i}">Remove</button>
+              </div>
+            </div>`;
+        }).join("");
+      }
+    }
+
+    function calc(){
+      // tunnel geometry
+      state.tunnelLen = +lenIn.value || 40;
+      state.tunnelWid = +widIn.value || 8;
+      state.tunnelCount = Math.max(1, +countIn.value || 1);
+      state.setupCostPerM2 = +setupIn.value || 850;
+
+      const areaPerTunnel = state.tunnelLen * state.tunnelWid;
+      const totalArea = areaPerTunnel * state.tunnelCount;
+      const tunnelSetup = state.setupCostPerM2 * totalArea;
+
+      totalAreaEl.value = fmtNum(totalArea) + " m²";
+      totalSetupEl.value = fmtINR(tunnelSetup);
+
+      // allocation
+      const totalPct = state.mix.reduce((s,m)=>s+(+m.pct||0),0);
+      // alloc bar
+      allocBarEl.innerHTML = state.mix.map((m,i)=>{
+        const c = getCrop(m.id);
+        if (!c) return "";
+        const w = Math.max(0, Math.min(100, +m.pct||0));
+        return `<div class="alloc-seg" style="width:${w}%;background:${palette[i % palette.length]}"></div>`;
+      }).join("");
+      allocTextEl.textContent = totalPct.toFixed(0) + "% allocated";
+
+      let statusClass = "ok", statusText = "Balanced";
+      if (totalPct === 0){statusClass = "under";statusText = "No allocation"}
+      else if (totalPct < 99){statusClass = "under";statusText = `${(100-totalPct).toFixed(0)}% unallocated`}
+      else if (totalPct > 101){statusClass = "over";statusText = `${(totalPct-100).toFixed(0)}% over`}
+      allocStatusEl.className = "alloc-status " + statusClass;
+      allocStatusEl.textContent = statusText;
+
+      // per crop
+      const rows = state.mix.map(m => {
+        const c = getCrop(m.id);
+        if (!c) return null;
+        const pct = (+m.pct||0)/100;
+        const cropArea = totalArea * pct;
+        const tunnelEq = cropArea / TUNNEL_BASE_M2;
+        const revLow = c.revenueLow * tunnelEq;
+        const revHigh = c.revenueHigh * tunnelEq;
+        const revMid = midpoint(revLow,revHigh);
+        const profitLow = c.profitLow * tunnelEq;
+        const profitHigh = c.profitHigh * tunnelEq;
+        const profitMid = midpoint(profitLow,profitHigh);
+        const cropSetup = midpoint(c.setupLow,c.setupHigh) * tunnelEq;
+        const water = midpoint(c.waterLow,c.waterHigh) * tunnelEq;
+        return {crop:c, pct:m.pct, area:cropArea, tunnelEq, revLow, revHigh, revMid, profitLow, profitHigh, profitMid, cropSetup, water};
+      }).filter(Boolean);
+
+      // totals
+      const totRev = rows.reduce((s,r)=>s+r.revMid,0);
+      const totRevLow = rows.reduce((s,r)=>s+r.revLow,0);
+      const totRevHigh = rows.reduce((s,r)=>s+r.revHigh,0);
+      const totProfit = rows.reduce((s,r)=>s+r.profitMid,0);
+      const totProfitLow = rows.reduce((s,r)=>s+r.profitLow,0);
+      const totProfitHigh = rows.reduce((s,r)=>s+r.profitHigh,0);
+      const totCropSetup = rows.reduce((s,r)=>s+r.cropSetup,0);
+      const totSetup = tunnelSetup + totCropSetup;
+      const totWater = rows.reduce((s,r)=>s+r.water,0);
+
+      $("kpiRevenue").textContent = fmtINR(totRev);
+      $("kpiRevenueRange").textContent = `range ${fmtINR(totRevLow)} – ${fmtINR(totRevHigh)}`;
+      $("kpiProfit").textContent = fmtINR(totProfit);
+      $("kpiProfitRange").textContent = `range ${fmtINR(totProfitLow)} – ${fmtINR(totProfitHigh)}`;
+      const paybackYears = totProfit > 0 ? totSetup / totProfit : null;
+      $("kpiPayback").textContent = paybackYears ? (paybackYears < 1 ? `${(paybackYears*12).toFixed(1)} mo` : `${paybackYears.toFixed(2)} yr`) : "—";
+      $("kpiWater").textContent = fmtNum(totWater) + " L/d";
+      $("kpiWaterMonth").textContent = fmtNum(totWater*30) + " L/month";
+
+      // breakdown
+      if (!rows.length){
+        bdBody.innerHTML = "";
+        bdEmpty.style.display = "block";
+        $("breakdownTable").style.display = "none";
+      } else {
+        $("breakdownTable").style.display = "table";
+        bdEmpty.style.display = "none";
+        bdBody.innerHTML = rows.map(r => {
+          const thumb = r.crop.img
+            ? `<img src="${imagePath(r.crop.img)}" alt="">`
+            : r.crop.emoji;
+          return `
+            <tr>
+              <td>
+                <div class="crop-cell">
+                  <div class="crop-thumb">${thumb}</div>
+                  <div>
+                    <div style="font-weight:600">${r.crop.name}</div>
+                    <div style="font-size:.74rem;color:var(--muted)">${r.crop.cat==="flower"?"Flower":"Vegetable"}</div>
+                  </div>
+                </div>
+              </td>
+              <td>${r.pct}%</td>
+              <td class="num">${fmtNum(r.area)}</td>
+              <td class="num">${r.tunnelEq.toFixed(2)}</td>
+              <td class="num pos">${fmtINR(r.revMid)}</td>
+              <td class="num pos">${fmtINR(r.profitMid)}</td>
+              <td class="num">${fmtINR(r.cropSetup)}</td>
+            </tr>`;
+        }).join("");
+      }
+
+      // charts
+      const labels = rows.map(r=>r.crop.name);
+      chartRev.data.labels = labels;
+      chartRev.data.datasets[0].data = rows.map(r=>Math.round(r.revMid));
+      chartRev.update();
+
+      chartProfit.data.labels = labels;
+      chartProfit.data.datasets[0].data = rows.map(r=>Math.round(r.profitMid));
+      chartProfit.data.datasets[0].backgroundColor = labels.map((_,i)=>palette[i%palette.length]);
+      chartProfit.update();
+
+      const yr1Net = totProfit - totSetup;
+      const yr2Net = totProfit;
+      chartSetup.data.datasets[0].data = [Math.round(totSetup), Math.round(totProfit), Math.round(yr1Net), Math.round(yr2Net)];
+      chartSetup.update();
+
+      // monthly cashflow - distribute revenue across 12 months with seasonal weighting
+      const seasonal = [.07,.08,.09,.085,.08,.075,.075,.085,.09,.10,.10,.09]; // sum=1
+      const monthly = seasonal.map(w => Math.round(totProfit * w));
+      chartMonthly.data.datasets[0].data = monthly;
+      chartMonthly.update();
+    }
+
+    // Events
+    [lenIn, widIn, countIn, setupIn].forEach(el => el.addEventListener("input", calc));
+
+    $("addCrop").addEventListener("click", () => {
+      const id = picker.value;
+      if (!id) return;
+      if (state.mix.find(m=>m.id===id)) return;
+      const remaining = Math.max(0, 100 - state.mix.reduce((s,m)=>s+(+m.pct||0),0));
+      const defaultPct = state.mix.length === 0 ? 100 : Math.min(remaining || 25, 25);
+      state.mix.push({id, pct: defaultPct});
+      picker.value = "";
+      renderMix();
+      calc();
+    });
+
+    mixListEl.addEventListener("input", (e) => {
+      const inp = e.target.closest(".mix-pct");
+      if (!inp) return;
+      const i = +inp.dataset.i;
+      state.mix[i].pct = Math.max(0, Math.min(100, +inp.value || 0));
+      calc();
+    });
+
+    mixListEl.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-remove]");
+      if (!btn) return;
+      state.mix.splice(+btn.dataset.remove, 1);
+      renderMix();
+      calc();
+    });
+
+    function applyPreset(items){
+      state.mix = items;
+      renderMix();
+      calc();
+    }
+    $("presetFlowers").addEventListener("click", () => applyPreset([
+      {id:"carnation",pct:40},{id:"rose",pct:30},{id:"gerbera",pct:20},{id:"sunflower",pct:10}
+    ]));
+    $("presetVeg").addEventListener("click", () => applyPreset([
+      {id:"capsicum",pct:30},{id:"cherry_tomato",pct:25},{id:"cucumber",pct:20},{id:"lettuce",pct:15},{id:"spinach",pct:10}
+    ]));
+    $("presetMix").addEventListener("click", () => applyPreset([
+      {id:"carnation",pct:25},{id:"rose",pct:15},{id:"capsicum",pct:25},{id:"cherry_tomato",pct:20},{id:"spinach",pct:15}
+    ]));
+    $("clearAll").addEventListener("click", () => applyPreset([]));
+
+    // Initial preset
+    applyPreset([
+      {id:"carnation",pct:30},{id:"rose",pct:25},{id:"capsicum",pct:25},{id:"spinach",pct:20}
+    ]);
+  </script>
+</body>
+</html>

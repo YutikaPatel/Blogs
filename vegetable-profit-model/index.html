@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vegetable Intelligence | Yutika Journal</title>
+  <meta name="description" content="A working tunnel-economics model for vegetables: leafy greens, vine crops, and premium polyhouse picks for Solan and Pune/Mumbai.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f6f3ec;
+      --surface:#ffffff;
+      --ink:#1a201a;
+      --ink-2:#33402f;
+      --muted:#6b7763;
+      --line:#e3dfd2;
+      --line-2:#cdd5c2;
+      --brand:#2c5e1f;
+      --brand-2:#4a8a3a;
+      --brand-soft:#e8f0e0;
+      --warm:#a04a2c;
+      --warm-soft:#f6e6dc;
+      --gold:#b58a3a;
+      --leafy:#2c5e1f;
+      --vine:#a04a2c;
+      --premium:#7a4f1a;
+      --shadow-sm:0 4px 14px rgba(26,32,26,.06);
+      --shadow:0 18px 44px rgba(26,32,26,.10);
+      --shadow-lg:0 30px 70px rgba(26,32,26,.18);
+      --r-sm:10px;
+      --r-md:16px;
+      --r-lg:22px;
+      --r-xl:28px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{margin:0;padding:0}
+    body{font-family:"Inter","Segoe UI",sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.6}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit}
+    h1,h2,h3,h4{font-family:"Fraunces",serif;font-weight:600;letter-spacing:-0.01em;margin:0;color:var(--ink)}
+
+    .nav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(140%) blur(14px);background:rgba(246,243,236,.78);border-bottom:1px solid rgba(0,0,0,.06)}
+    .nav-inner{max-width:1280px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:10px;font-family:"Fraunces",serif;font-weight:600;font-size:1.18rem}
+    .brand-mark{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#f4d6c1 0,#a04a2c 55%,#5e2614 100%);box-shadow:inset 0 0 0 2px #fff,0 4px 10px rgba(160,74,44,.35)}
+    .nav-links{display:flex;gap:22px;font-size:.92rem;color:var(--ink-2);font-weight:500}
+    .nav-links a{position:relative;padding:6px 2px}
+    .nav-links a:hover{color:var(--brand)}
+    .nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:var(--brand);border-radius:2px}
+
+    .wrap{max-width:1280px;margin:0 auto;padding:0 22px 90px}
+    .crumb{display:inline-flex;align-items:center;gap:8px;margin:32px 0 14px;font-size:.85rem;color:var(--muted);font-weight:500}
+    .crumb a{color:var(--brand);font-weight:600}
+    .crumb a:hover{text-decoration:underline}
+
+    .hero{padding:14px 0 24px;display:grid;grid-template-columns:1.4fr .8fr;gap:42px;align-items:end}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brand)}
+    .eyebrow::before{content:"";width:28px;height:1px;background:var(--brand)}
+    .hero h1{font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.02;letter-spacing:-0.02em;margin:18px 0 18px}
+    .hero h1 em{font-style:italic;color:var(--warm);font-weight:500}
+    .hero p.lede{font-size:1.04rem;color:var(--muted);line-height:1.78;max-width:600px;margin:0}
+    .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+    .pill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line-2);background:var(--surface);padding:7px 13px;border-radius:999px;font-size:.78rem;color:var(--ink-2);font-weight:600}
+    .pill .dot{width:6px;height:6px;border-radius:50%;background:var(--brand)}
+    .hero-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:28px;box-shadow:var(--shadow-sm);display:grid;gap:18px}
+    .stat{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--line)}
+    .stat:last-child{border:0;padding-bottom:0}
+    .stat .lbl{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600}
+    .stat .val{font-family:"Fraunces",serif;font-size:1.4rem;font-weight:600;color:var(--ink)}
+
+    .toolbar{margin:42px 0 22px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+    .toolbar h2{font-size:clamp(1.6rem,2.5vw,2.1rem);line-height:1.1}
+    .filters{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);font-size:.86rem;font-weight:600;color:var(--ink-2);cursor:pointer;transition:all .2s ease}
+    .chip:hover{border-color:var(--ink);color:var(--ink)}
+    .chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .chip .count{font-size:.72rem;background:rgba(0,0,0,.08);padding:2px 8px;border-radius:999px;font-weight:700}
+    .chip.active .count{background:rgba(255,255,255,.18);color:#fff}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;cursor:pointer;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s,border-color .35s;display:flex;flex-direction:column}
+    .card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--line-2)}
+    .card-art{position:relative;aspect-ratio:4/3;overflow:hidden;background:#1a1a1a}
+    .card-art img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+    .card:hover .card-art img{transform:scale(1.07)}
+    .card-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,22,15,.05) 0%,rgba(15,22,15,.55) 100%);pointer-events:none}
+    .card-art.gradient{display:flex;align-items:center;justify-content:center;position:relative}
+    .card-art.gradient .iconBig{font-size:5.4rem;filter:drop-shadow(0 8px 18px rgba(0,0,0,.25));z-index:1;animation:float 4s ease-in-out infinite}
+    .card-art.gradient::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 22% 22%,rgba(255,255,255,.18) 0,transparent 35%),radial-gradient(circle at 78% 78%,rgba(0,0,0,.18) 0,transparent 35%);pointer-events:none}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .cat-tag{position:absolute;top:14px;left:14px;z-index:2;display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);padding:6px 12px;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+    .cat-tag .dot{width:7px;height:7px;border-radius:50%}
+    .cat-tag.leafy{color:var(--leafy)}.cat-tag.leafy .dot{background:var(--leafy)}
+    .cat-tag.vine{color:var(--vine)}.cat-tag.vine .dot{background:var(--vine)}
+    .cat-tag.premium{color:var(--premium)}.cat-tag.premium .dot{background:var(--premium)}
+    .score-tag{position:absolute;top:14px;right:14px;z-index:2;background:rgba(20,30,20,.78);backdrop-filter:blur(10px);color:#fff;padding:6px 11px;border-radius:999px;font-size:.74rem;font-weight:700;display:inline-flex;align-items:center;gap:5px}
+    .score-tag .star{color:#f5d77a}
+    .card-name{position:absolute;left:18px;right:18px;bottom:16px;z-index:2;color:#fff}
+    .card-name .kind-mini{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85);font-weight:600;margin-bottom:4px}
+    .card-name h3{font-size:1.55rem;line-height:1.18;color:#fff;font-weight:600;letter-spacing:-0.005em}
+
+    .card-body{padding:18px 18px 16px;display:grid;gap:10px;flex:1}
+    .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.88rem}
+    .row .k{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+    .row .v{color:var(--ink-2);font-weight:500;text-align:right}
+    .rev{margin-top:6px;padding:12px 14px;background:linear-gradient(135deg,var(--brand-soft),#f4f9f0);border:1px solid #cee0c8;border-radius:var(--r-sm);display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+    .rev .k{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);font-weight:700}
+    .rev .v{font-family:"Fraunces",serif;font-size:1.05rem;color:var(--brand);font-weight:600}
+    .open-cta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px;padding-top:12px;border-top:1px dashed var(--line);font-size:.82rem;color:var(--ink-2);font-weight:600}
+    .open-cta .arr{transition:transform .25s ease;color:var(--brand)}
+    .card:hover .open-cta .arr{transform:translateX(4px)}
+
+    .summary{margin-top:64px;display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+    .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:28px;box-shadow:var(--shadow-sm)}
+    .panel h3{font-size:1.4rem;margin-bottom:16px}
+    table{width:100%;border-collapse:collapse;font-size:.92rem}
+    th,td{padding:13px 0;border-bottom:1px solid var(--line);text-align:left}
+    th{color:var(--muted);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;font-family:"Inter",sans-serif}
+    tr:last-child td{border-bottom:0}
+    td:last-child{text-align:right;font-family:"Fraunces",serif;font-weight:600;color:var(--ink)}
+    .strategy{display:grid;gap:12px}
+    .s-item{display:flex;gap:14px;align-items:flex-start;padding:14px;border:1px solid var(--line);border-radius:var(--r-md);background:#fafaf3}
+    .s-num{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Fraunces",serif;font-weight:600;font-size:.95rem}
+    .s-item.warn .s-num{background:var(--warm)}
+    .s-item b{display:block;color:var(--ink);font-size:.95rem;margin-bottom:2px}
+    .s-item span{color:var(--muted);font-size:.86rem}
+
+    dialog{border:0;border-radius:var(--r-xl);padding:0;width:min(1180px,96vw);max-height:94vh;background:var(--surface);color:var(--ink);box-shadow:0 50px 120px rgba(0,0,0,.45);overflow:hidden}
+    dialog::backdrop{background:rgba(20,30,20,.72);backdrop-filter:blur(8px)}
+    .modal{display:grid;grid-template-columns:1.15fr .85fr;max-height:94vh}
+    .media{background:#0d130f;position:relative;display:flex;flex-direction:column;min-height:560px}
+    .media-main{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:18px;overflow:hidden}
+    .media-main img{width:100%;height:100%;max-height:520px;object-fit:contain;border-radius:var(--r-sm);filter:drop-shadow(0 14px 30px rgba(0,0,0,.5))}
+    .media-main.gradient{background-size:cover}
+    .media-main.gradient .iconBig{font-size:11rem;filter:drop-shadow(0 14px 30px rgba(0,0,0,.5))}
+    .nav-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(20,30,20,.55);backdrop-filter:blur(10px);color:#fff;font-size:1.2rem;cursor:pointer;transition:all .22s ease;z-index:3;display:flex;align-items:center;justify-content:center}
+    .nav-btn:hover{background:rgba(255,255,255,.18);transform:translateY(-50%) scale(1.06)}
+    .nav-btn.prev{left:14px}
+    .nav-btn.next{right:14px}
+    .img-counter{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:3;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);color:#fff;font-size:.74rem;font-weight:600;padding:5px 12px;border-radius:999px;letter-spacing:.06em}
+    .thumbs{display:flex;gap:8px;padding:12px 14px 14px;background:#0a0f0b;border-top:1px solid rgba(255,255,255,.06);overflow-x:auto;scrollbar-width:thin}
+    .thumbs img{flex-shrink:0;width:72px;height:54px;object-fit:cover;border-radius:var(--r-sm);border:2px solid transparent;cursor:pointer;opacity:.65;transition:all .22s ease}
+    .thumbs img:hover{opacity:.9}
+    .thumbs img.active{border-color:#9bc7a8;opacity:1;transform:scale(1.04)}
+
+    .panel-info{padding:0;display:flex;flex-direction:column;max-height:94vh;overflow:hidden}
+    .panel-head{padding:26px 28px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+    .panel-head .kicker{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--warm);font-weight:700;margin-bottom:8px}
+    .panel-head h3{font-size:1.85rem;line-height:1.12;margin-bottom:6px}
+    .panel-head .sub{color:var(--muted);font-size:.92rem}
+    .close{flex-shrink:0;width:36px;height:36px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);font-size:1.2rem;cursor:pointer;line-height:1;transition:all .2s ease;display:flex;align-items:center;justify-content:center}
+    .close:hover{background:var(--ink);color:#fff;border-color:var(--ink);transform:rotate(90deg)}
+
+    .p-tabs{display:flex;gap:4px;padding:14px 28px 0;border-bottom:1px solid var(--line)}
+    .p-tab{padding:11px 16px;background:transparent;border:0;font-size:.86rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .22s ease;position:relative;margin-bottom:-1px}
+    .p-tab:hover{color:var(--ink)}
+    .p-tab.active{color:var(--brand);border-bottom-color:var(--brand)}
+
+    .panel-content{flex:1;overflow-y:auto;padding:24px 28px}
+    .info-grid{display:grid;gap:14px}
+    .info-row{display:grid;grid-template-columns:130px 1fr;gap:18px;padding:12px 0;border-bottom:1px dashed var(--line);align-items:baseline}
+    .info-row:last-child{border:0}
+    .info-row .lbl{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+    .info-row .val{color:var(--ink);font-size:.94rem;line-height:1.6}
+    .info-row .val.big{font-family:"Fraunces",serif;font-size:1.1rem;font-weight:600;color:var(--brand)}
+
+    .bullets{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+    .bullets li{padding:12px 14px;background:#fafaf3;border:1px solid var(--line);border-radius:var(--r-sm);font-size:.92rem;line-height:1.6;color:var(--ink-2);position:relative;padding-left:34px}
+    .bullets li::before{content:"";position:absolute;left:14px;top:18px;width:8px;height:8px;border-radius:50%;background:var(--brand)}
+
+    .panel-foot{padding:14px 28px 22px;border-top:1px solid var(--line);background:#fafaf3}
+    .panel-foot .note{display:flex;gap:12px;align-items:flex-start;font-size:.86rem;color:var(--ink-2);line-height:1.55}
+    .panel-foot .note-icon{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--warm-soft);color:var(--warm);display:flex;align-items:center;justify-content:center;font-family:"Fraunces",serif;font-weight:700;font-size:.95rem}
+    .panel-foot .note b{color:var(--ink);display:block;margin-bottom:2px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+
+    .empty{grid-column:1/-1;padding:60px 24px;text-align:center;color:var(--muted);border:1px dashed var(--line-2);border-radius:var(--r-lg);background:rgba(255,255,255,.5)}
+
+    @media (max-width:1080px){.grid{grid-template-columns:repeat(2,1fr)}.summary{grid-template-columns:1fr}}
+    @media (max-width:780px){
+      .hero{grid-template-columns:1fr;gap:28px}
+      .toolbar{flex-direction:column;align-items:flex-start}
+      .grid{grid-template-columns:1fr}
+      .modal{grid-template-columns:1fr;max-height:94vh}
+      .media{min-height:auto;max-height:50vh}
+      .media-main{min-height:240px}
+      .media-main img{max-height:340px}
+      .panel-head{padding:20px 22px 14px}
+      .p-tabs{padding:10px 22px 0;overflow-x:auto;scrollbar-width:none}
+      .p-tabs::-webkit-scrollbar{display:none}
+      .panel-content{padding:18px 22px}
+      .info-row{grid-template-columns:1fr;gap:4px}
+      .nav-links{display:none}
+    }
+    @media (max-width:480px){.hero h1{font-size:2.2rem}}
+
+    .card{opacity:0;transform:translateY(14px);animation:rise .55s cubic-bezier(.2,.7,.2,1) forwards}
+    .card:nth-child(1){animation-delay:.02s}
+    .card:nth-child(2){animation-delay:.06s}
+    .card:nth-child(3){animation-delay:.10s}
+    .card:nth-child(4){animation-delay:.14s}
+    .card:nth-child(5){animation-delay:.18s}
+    .card:nth-child(6){animation-delay:.22s}
+    .card:nth-child(n+7){animation-delay:.26s}
+    @keyframes rise{to{opacity:1;transform:translateY(0)}}
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="../index.html">
+        <span class="brand-mark"></span>
+        <span>Yutika &middot; Journal</span>
+      </a>
+      <nav class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="../flower-profit-model/">Flowers</a>
+        <a href="./" class="active">Vegetables</a>
+        <a href="../tunnel-planner/">Tunnel Planner</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="crumb">
+      <a href="../index.html">&larr; Journal</a>
+      <span>&middot;</span>
+      <span>Vegetable Intelligence</span>
+    </div>
+
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Crop Economics &middot; Issue 02</span>
+        <h1>Eighteen vegetable crops, <em>tunnel-grade economics</em>, by category.</h1>
+        <p class="lede">Leafy greens, vine crops, and premium polyhouse vegetables sized to a 1,200 sq ft tunnel. Pair with flowers in the planner for off-season cash flow and cycle stability.</p>
+        <div class="pill-row">
+          <span class="pill"><span class="dot"></span>Updated April 29, 2026</span>
+          <span class="pill"><span class="dot" style="background:var(--vine)"></span>Per Tunnel &middot; 1,200 sq ft</span>
+          <span class="pill"><span class="dot" style="background:var(--premium)"></span>Indian polyhouse context</span>
+        </div>
+        <div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap">
+          <a href="../tunnel-planner/" style="display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-weight:600;font-size:.9rem;text-decoration:none">Plan your tunnel mix &rarr;</a>
+          <a href="../flower-profit-model/" style="display:inline-flex;align-items:center;gap:8px;background:var(--surface);color:var(--ink);padding:11px 18px;border-radius:999px;font-weight:600;font-size:.9rem;text-decoration:none;border:1px solid var(--line-2)">Browse flowers</a>
+        </div>
+      </div>
+      <aside class="hero-card">
+        <div class="stat"><span class="lbl">Crops profiled</span><span class="val">18</span></div>
+        <div class="stat"><span class="lbl">Revenue band</span><span class="val">&#8377;1&ndash;8 L</span></div>
+        <div class="stat"><span class="lbl">Profit band</span><span class="val">&#8377;0.6&ndash;4 L</span></div>
+        <div class="stat"><span class="lbl">Cycle range</span><span class="val">21d&ndash;9mo</span></div>
+      </aside>
+    </section>
+
+    <div class="toolbar">
+      <h2 id="section-title">All vegetables</h2>
+      <div class="filters" id="region-tabs">
+        <button class="chip active" data-cat="all">All <span class="count" id="c-all">0</span></button>
+        <button class="chip" data-cat="leafy">Leafy greens <span class="count" id="c-leafy">0</span></button>
+        <button class="chip" data-cat="vine">Vine &amp; fruiting <span class="count" id="c-vine">0</span></button>
+        <button class="chip" data-cat="premium">Premium polyhouse <span class="count" id="c-premium">0</span></button>
+      </div>
+    </div>
+
+    <section class="grid" id="cards"></section>
+
+    <div class="summary">
+      <div class="panel">
+        <h3>Tunnel summary &middot; 1,200 sq ft</h3>
+        <table>
+          <thead><tr><th>Factor</th><th>Range</th></tr></thead>
+          <tbody>
+            <tr><td>Water</td><td>1,500&ndash;4,500 L/day</td></tr>
+            <tr><td>Nutrients</td><td>&#8377;1.5K&ndash;6K / month</td></tr>
+            <tr><td>Setup cost</td><td>&#8377;8K&ndash;1L+ (crop dependent)</td></tr>
+            <tr><td>Revenue</td><td>&#8377;1&ndash;8 lakh / year</td></tr>
+            <tr><td>Profit</td><td>&#8377;0.6&ndash;4 lakh / year</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <h3>Recommended sequence</h3>
+        <div class="strategy">
+          <div class="s-item"><div class="s-num">1</div><div><b>Start &middot; Leafy</b><span>Spinach + Coriander + Methi for fast 30-45 day cycles and steady cash flow.</span></div></div>
+          <div class="s-item"><div class="s-num">2</div><div><b>Then add &middot; Vine</b><span>Tomato + Cucumber for 4-6 month cycles with stronger per-tunnel revenue.</span></div></div>
+          <div class="s-item"><div class="s-num">3</div><div><b>Premium tier</b><span>Coloured Capsicum, Cherry Tomato, Strawberry once cooling and labor are stable.</span></div></div>
+          <div class="s-item warn"><div class="s-num">!</div><div><b>Watch out</b><span>Strawberry needs 10-22°C and tight pest discipline &mdash; not for the first season.</span></div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <dialog id="profile-modal">
+    <div class="modal">
+      <div class="media">
+        <div class="media-main" id="media-main">
+          <img id="main-image" alt="" style="display:none">
+          <span class="iconBig" id="main-icon" style="display:none"></span>
+          <button class="nav-btn prev" id="img-prev" aria-label="Previous">&lsaquo;</button>
+          <button class="nav-btn next" id="img-next" aria-label="Next">&rsaquo;</button>
+          <span class="img-counter" id="img-counter"></span>
+        </div>
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+      <div class="panel-info">
+        <div class="panel-head">
+          <div>
+            <div class="kicker" id="modal-kicker"></div>
+            <h3 id="modal-name"></h3>
+            <div class="sub" id="modal-kind"></div>
+          </div>
+          <button class="close" id="modal-close" aria-label="Close">&times;</button>
+        </div>
+        <div class="p-tabs" id="profile-tabs">
+          <button class="p-tab active" data-view="overview">Overview</button>
+          <button class="p-tab" data-view="agronomy">Agronomy</button>
+          <button class="p-tab" data-view="economics">Economics</button>
+          <button class="p-tab" data-view="gallery">Gallery</button>
+        </div>
+        <div class="panel-content" id="profile-content"></div>
+        <div class="panel-foot">
+          <div class="note">
+            <div class="note-icon">i</div>
+            <div>
+              <b>Field note</b>
+              <span id="modal-foot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    const data = [
+      {cat:"leafy",emoji:"🥬",name:"Spinach (Palak)",kind:"Daily-harvest leafy green",score:6,
+        gradient:"linear-gradient(135deg,#1a4426,#4a8a3a)",
+        quick:{growth:"30-45 days",harvest:"Multi-cut continuous",revenue:"₹1.5-2.5L/year per tunnel"},
+        overview:["Quick rotation crop with steady cash flow","Strong urban demand year-round","Fills gaps between flower cycles"],
+        climate:{ideal:"15-25°C",max:"30°C",humidity:"60-75%"},
+        plantation:{units:"~5 kg seed/tunnel",cost:"₹500-1200/cycle",total:"Low entry"},
+        water:"~1500-2000 L/day",nutrients:"₹1500-3000/month",
+        lifecycle:{start:"30-45 days",life:"5-6 cycles/year"},
+        price:"₹40-80/kg wholesale",
+        economics:{monthly:"₹12K-22K/month per tunnel",revenue:"₹1.5-2.5 lakh/year per tunnel",profit:"₹80K-1.5 lakh/year per tunnel"},
+        note:"Excellent for filling between flower cycles",images:[33]},
+      {cat:"leafy",emoji:"🌿",name:"Fenugreek (Methi)",kind:"Fast-cycle leafy",score:6,
+        gradient:"linear-gradient(135deg,#2c5e1f,#5c9248)",
+        quick:{growth:"25-30 days",harvest:"Single cut",revenue:"₹1.2-2L/year per tunnel"},
+        overview:["Shortest tunnel cycle in this catalog","Strong winter demand in North India","Easy succession planting model"],
+        climate:{ideal:"10-25°C",max:"30°C",humidity:"50-70%"},
+        plantation:{units:"~6-8 kg seed/tunnel",cost:"₹600-1500/cycle",total:"Low entry"},
+        water:"~1500-2000 L/day",nutrients:"₹1200-2500/month",
+        lifecycle:{start:"25-30 days",life:"6-8 cycles/year"},
+        price:"₹30-60/kg wholesale",
+        economics:{monthly:"₹10K-18K/month per tunnel",revenue:"₹1.2-2 lakh/year per tunnel",profit:"₹70K-1.2 lakh/year per tunnel"},
+        note:"Best succession-planted in 2 week intervals",images:[]},
+      {cat:"leafy",emoji:"🌱",name:"Coriander (Dhania)",kind:"Premium urban herb",score:7,
+        gradient:"linear-gradient(135deg,#1f5e2c,#6ab04c)",
+        quick:{growth:"30-40 days",harvest:"Continuous bunching",revenue:"₹1.8-3L/year per tunnel"},
+        overview:["Highest demand fresh herb in metros","Strong wholesale + restaurant channel","6-8 cycles per year possible"],
+        climate:{ideal:"15-25°C",max:"30°C",humidity:"60-70%"},
+        plantation:{units:"~8-10 kg seed/tunnel",cost:"₹1200-2500/cycle",total:"Low-medium"},
+        water:"~1800-2500 L/day",nutrients:"₹1500-3000/month",
+        lifecycle:{start:"30-40 days",life:"6-8 cycles/year"},
+        price:"₹60-120/kg wholesale",
+        economics:{monthly:"₹15K-25K/month per tunnel",revenue:"₹1.8-3 lakh/year per tunnel",profit:"₹1-1.8 lakh/year per tunnel"},
+        note:"Bolting risk in summer - shade discipline required",images:[]},
+      {cat:"premium",emoji:"🥗",name:"Lettuce (Iceberg & Romaine)",kind:"Premium polyhouse leafy",score:7,
+        quick:{growth:"45-60 days",harvest:"Single head per plant",revenue:"₹2.5-4.5L/year per tunnel"},
+        overview:["Premium HORECA channel crop","Tight cool-chain requirement","Best margins on Romaine and Butter varieties"],
+        climate:{ideal:"15-22°C",max:"26°C",humidity:"60-70%"},
+        plantation:{units:"~3500-4000 plants/tunnel",cost:"₹2-4/seedling",total:"₹10K-18K"},
+        water:"~2000-2800 L/day",nutrients:"₹2500-4500/month",
+        lifecycle:{start:"45-60 days",life:"4-5 cycles/year"},
+        price:"₹40-90/head wholesale",
+        economics:{monthly:"₹20K-38K/month per tunnel",revenue:"₹2.5-4.5 lakh/year per tunnel",profit:"₹1.2-2.5 lakh/year per tunnel"},
+        note:"Cool chain quality is what unlocks premium price",images:[33]},
+      {cat:"premium",emoji:"🥬",name:"Kale",kind:"Superfood premium",score:7,
+        quick:{growth:"55-70 days",harvest:"Multi-pick over weeks",revenue:"₹2.5-4L/year per tunnel"},
+        overview:["High value with health-conscious channels","Strong online D2C performance","Multiple varieties: curly, lacinato, ornamental"],
+        climate:{ideal:"15-22°C",max:"28°C",humidity:"60-75%"},
+        plantation:{units:"~1800-2200 plants/tunnel",cost:"₹3-6/seedling",total:"₹8K-14K"},
+        water:"~1800-2500 L/day",nutrients:"₹2200-4000/month",
+        lifecycle:{start:"55-70 days",life:"3-4 month productive window"},
+        price:"₹150-300/kg wholesale",
+        economics:{monthly:"₹20K-35K/month per tunnel",revenue:"₹2.5-4 lakh/year per tunnel",profit:"₹1.2-2.2 lakh/year per tunnel"},
+        note:"Pest discipline (aphid + diamondback moth) is critical",images:[22,23,24]},
+      {cat:"leafy",emoji:"🍃",name:"Amaranth (Lal Saag)",kind:"Quick rotation leafy",score:5,
+        gradient:"linear-gradient(135deg,#7a1a2c,#c64554)",
+        quick:{growth:"30-40 days",harvest:"Single cut",revenue:"₹1-1.8L/year per tunnel"},
+        overview:["Cheap input cost, fast cycle","Local market staple","Drought-tolerant variety available"],
+        climate:{ideal:"22-32°C",max:"38°C",humidity:"50-70%"},
+        plantation:{units:"~4-5 kg seed/tunnel",cost:"₹500-1000/cycle",total:"Very low"},
+        water:"~1500-2000 L/day",nutrients:"₹1000-2200/month",
+        lifecycle:{start:"30-40 days",life:"5-6 cycles/year"},
+        price:"₹25-60/kg wholesale",
+        economics:{monthly:"₹8K-15K/month per tunnel",revenue:"₹1-1.8 lakh/year per tunnel",profit:"₹50K-1 lakh/year per tunnel"},
+        note:"Lowest barrier to entry vegetable in this list",images:[]},
+      {cat:"leafy",emoji:"🧅",name:"Spring Onion",kind:"Bunching onion",score:6,
+        gradient:"linear-gradient(135deg,#2c5e35,#7ab048)",
+        quick:{growth:"60-75 days",harvest:"Pulled bunches",revenue:"₹1.5-2.5L/year per tunnel"},
+        overview:["Stable wholesale and retail demand","Hill-station and metro channels","Restaurant-grade premium possible"],
+        climate:{ideal:"15-25°C",max:"30°C",humidity:"60-75%"},
+        plantation:{units:"~3-4 kg seed/tunnel",cost:"₹1500-3000",total:"Low-medium"},
+        water:"~1800-2500 L/day",nutrients:"₹1800-3500/month",
+        lifecycle:{start:"60-75 days",life:"3-4 cycles/year"},
+        price:"₹40-100/kg wholesale",
+        economics:{monthly:"₹12K-22K/month per tunnel",revenue:"₹1.5-2.5 lakh/year per tunnel",profit:"₹80K-1.4 lakh/year per tunnel"},
+        note:"Bunching quality drives premium pricing",images:[]},
+      {cat:"premium",emoji:"🌱",name:"Microgreens",kind:"D2C premium tray crop",score:8,
+        gradient:"linear-gradient(135deg,#0d3d1f,#5dac3a)",
+        quick:{growth:"7-21 days",harvest:"Whole-tray cut",revenue:"₹4-8L/year per tunnel"},
+        overview:["Highest revenue per square foot in this catalog","Direct-to-consumer & restaurant subscription model","Trays stacked vertically lift density"],
+        climate:{ideal:"18-24°C",max:"28°C",humidity:"50-70%"},
+        plantation:{units:"~400-600 trays in rotation",cost:"₹100-250/tray cost",total:"₹40K-90K initial setup"},
+        water:"~500-1000 L/day (sprayed)",nutrients:"₹2500-5000/month",
+        lifecycle:{start:"7-21 days",life:"15-25 cycles/year per tray"},
+        price:"₹80-300/100g pack",
+        economics:{monthly:"₹35K-65K/month per tunnel",revenue:"₹4-8 lakh/year per tunnel",profit:"₹2.5-4 lakh/year per tunnel"},
+        note:"Subscription model is the unlock - lock D2C buyers early",images:[33]},
+      {cat:"vine",emoji:"🍅",name:"Tomato (Hybrid)",kind:"Vine staple",score:7,
+        gradient:"linear-gradient(135deg,#7a1a1f,#d33a2e)",
+        quick:{growth:"75-90 days first harvest",harvest:"6-8 month vining",revenue:"₹3-5L/year per tunnel"},
+        overview:["Reliable polyhouse staple","Strong indeterminate-variety yields","Disease pressure managed via grafted seedlings"],
+        climate:{ideal:"20-28°C",max:"32°C",humidity:"60-75%"},
+        plantation:{units:"~1800-2200 plants/tunnel",cost:"₹8-15/seedling",total:"₹18K-35K"},
+        water:"~3000-4500 L/day",nutrients:"₹4000-7000/month",
+        lifecycle:{start:"75-90 days",life:"7-9 month indeterminate cycle"},
+        price:"₹15-40/kg wholesale",
+        economics:{monthly:"₹25K-42K/month per tunnel",revenue:"₹3-5 lakh/year per tunnel",profit:"₹1.5-2.8 lakh/year per tunnel"},
+        note:"Grafted rootstock dramatically reduces wilt risk",images:[]},
+      {cat:"premium",emoji:"🍒",name:"Cherry Tomato",kind:"Premium HORECA vine",score:8,
+        gradient:"linear-gradient(135deg,#5e0d12,#e94545)",
+        quick:{growth:"80-95 days first harvest",harvest:"6-8 month vining",revenue:"₹4-7L/year per tunnel"},
+        overview:["Premium per-kg realization","HORECA + premium retail","Steady summer demand vs slab tomato"],
+        climate:{ideal:"20-26°C",max:"30°C",humidity:"60-75%"},
+        plantation:{units:"~1500-1800 plants/tunnel",cost:"₹15-25/seedling",total:"₹25K-45K"},
+        water:"~3000-4200 L/day",nutrients:"₹4500-7500/month",
+        lifecycle:{start:"80-95 days",life:"7-9 month cycle"},
+        price:"₹120-300/kg wholesale",
+        economics:{monthly:"₹35K-60K/month per tunnel",revenue:"₹4-7 lakh/year per tunnel",profit:"₹2-4 lakh/year per tunnel"},
+        note:"Trellis quality and pollination drive yield curve",images:[]},
+      {cat:"vine",emoji:"🥒",name:"Cucumber (Hybrid)",kind:"Fast vine crop",score:7,
+        gradient:"linear-gradient(135deg,#1f5e2c,#6dbf3a)",
+        quick:{growth:"45-55 days first harvest",harvest:"3-4 month vining",revenue:"₹2.5-4.5L/year per tunnel"},
+        overview:["Quickest payoff vine crop","Good summer salad demand","Parthenocarpic varieties skip pollination"],
+        climate:{ideal:"22-28°C",max:"32°C",humidity:"65-80%"},
+        plantation:{units:"~1500-1800 plants/tunnel",cost:"₹10-20/seedling",total:"₹18K-32K"},
+        water:"~3000-4500 L/day",nutrients:"₹3500-6000/month",
+        lifecycle:{start:"45-55 days",life:"3-4 month per cycle, 2 cycles"},
+        price:"₹20-50/kg wholesale",
+        economics:{monthly:"₹22K-38K/month per tunnel",revenue:"₹2.5-4.5 lakh/year per tunnel",profit:"₹1.3-2.5 lakh/year per tunnel"},
+        note:"Two cycles per year is the realistic plan",images:[]},
+      {cat:"premium",emoji:"🫑",name:"Coloured Capsicum",kind:"Yellow + red bell pepper",score:8,
+        gradient:"linear-gradient(135deg,#a86010,#f6b32f)",
+        quick:{growth:"75-90 days first harvest",harvest:"6-9 month picking",revenue:"₹4-7L/year per tunnel"},
+        overview:["Highest margin vine crop in this catalog","Premium retail and HORECA","Yellow + red varieties price 3-4x green"],
+        climate:{ideal:"20-26°C",max:"30°C",humidity:"60-75%"},
+        plantation:{units:"~1200-1500 plants/tunnel",cost:"₹18-30/seedling",total:"₹25K-45K"},
+        water:"~3500-5000 L/day",nutrients:"₹5000-8500/month",
+        lifecycle:{start:"75-90 days",life:"6-9 month productive window"},
+        price:"₹120-250/kg wholesale",
+        economics:{monthly:"₹35K-58K/month per tunnel",revenue:"₹4-7 lakh/year per tunnel",profit:"₹2-3.8 lakh/year per tunnel"},
+        note:"Cooling discipline is critical above 30°C",images:[]},
+      {cat:"vine",emoji:"🍈",name:"Bottle Gourd (Lauki)",kind:"Trellis vine staple",score:5,
+        gradient:"linear-gradient(135deg,#3d6b1f,#a8c43a)",
+        quick:{growth:"55-70 days",harvest:"3-4 month picking",revenue:"₹1.2-2L/year per tunnel"},
+        overview:["Low input cost staple","Reliable wholesale demand","Heat-tolerant varieties available"],
+        climate:{ideal:"22-32°C",max:"38°C",humidity:"60-75%"},
+        plantation:{units:"~600-800 plants/tunnel",cost:"₹3-6/seedling",total:"Low entry"},
+        water:"~2500-3500 L/day",nutrients:"₹1800-3500/month",
+        lifecycle:{start:"55-70 days",life:"3-4 month, 2 cycles/year"},
+        price:"₹15-35/kg wholesale",
+        economics:{monthly:"₹10K-18K/month per tunnel",revenue:"₹1.2-2 lakh/year per tunnel",profit:"₹70K-1.2 lakh/year per tunnel"},
+        note:"Use as low-cost rotation between high-margin cycles",images:[]},
+      {cat:"vine",emoji:"🫛",name:"Bitter Gourd (Karela)",kind:"Trellis vine medicinal",score:6,
+        gradient:"linear-gradient(135deg,#1a4426,#588a2c)",
+        quick:{growth:"55-70 days",harvest:"3-4 month picking",revenue:"₹1.5-2.8L/year per tunnel"},
+        overview:["Stable diabetic-segment demand","Medicinal market premium","Hybrid varieties yield 30%+ more"],
+        climate:{ideal:"22-32°C",max:"38°C",humidity:"60-80%"},
+        plantation:{units:"~600-900 plants/tunnel",cost:"₹4-8/seedling",total:"Low-medium"},
+        water:"~2500-3500 L/day",nutrients:"₹2000-4000/month",
+        lifecycle:{start:"55-70 days",life:"3-4 month, 2 cycles/year"},
+        price:"₹40-90/kg wholesale",
+        economics:{monthly:"₹12K-22K/month per tunnel",revenue:"₹1.5-2.8 lakh/year per tunnel",profit:"₹80K-1.6 lakh/year per tunnel"},
+        note:"Hybrid F1 seed pays back vs open-pollinated",images:[]},
+      {cat:"vine",emoji:"🫘",name:"French Beans",kind:"Bush + pole varieties",score:6,
+        gradient:"linear-gradient(135deg,#4a6a1f,#a8c43a)",
+        quick:{growth:"50-65 days",harvest:"3-4 month picking",revenue:"₹1.8-3L/year per tunnel"},
+        overview:["Quick-cycle bush bean for fast cash","Pole-type for higher per-tunnel yield","Strong winter pricing window"],
+        climate:{ideal:"18-26°C",max:"30°C",humidity:"60-75%"},
+        plantation:{units:"~1500-2000 plants (bush)",cost:"₹2-4/seed",total:"Low entry"},
+        water:"~2500-3500 L/day",nutrients:"₹2500-4500/month",
+        lifecycle:{start:"50-65 days",life:"3-4 month, 2-3 cycles/year"},
+        price:"₹40-90/kg wholesale",
+        economics:{monthly:"₹15K-25K/month per tunnel",revenue:"₹1.8-3 lakh/year per tunnel",profit:"₹1-1.8 lakh/year per tunnel"},
+        note:"Pole bean uses vertical space better in tall tunnels",images:[]},
+      {cat:"premium",emoji:"🍓",name:"Strawberry",kind:"High-value premium polyhouse",score:8,
+        gradient:"linear-gradient(135deg,#7a0d1f,#e94560)",
+        quick:{growth:"60-90 days first fruit",harvest:"4-6 month picking",revenue:"₹5-8L/year per tunnel"},
+        overview:["Top per-tunnel revenue in this catalog","Best for hill-station + cool tunnels","Direct-to-consumer + retail packs"],
+        climate:{ideal:"10-22°C",max:"28°C with cooling",humidity:"60-75%"},
+        plantation:{units:"~10000-12000 runners/tunnel",cost:"₹4-8/runner",total:"₹50K-90K"},
+        water:"~2500-3500 L/day",nutrients:"₹5000-9000/month",
+        lifecycle:{start:"60-90 days",life:"4-6 month productive window"},
+        price:"₹250-500/kg wholesale",
+        economics:{monthly:"₹50K-90K/month in season",revenue:"₹5-8 lakh/year per tunnel",profit:"₹2.5-4 lakh/year per tunnel"},
+        note:"Pest + temperature discipline is non-negotiable - not a first-season crop",images:[]},
+      {cat:"leafy",emoji:"🌿",name:"Mint (Pudina)",kind:"Aromatic herb",score:6,
+        gradient:"linear-gradient(135deg,#2c6e3a,#8acc4a)",
+        quick:{growth:"45-60 days first cut",harvest:"Continuous multi-cut",revenue:"₹1.5-2.5L/year per tunnel"},
+        overview:["Strong restaurant + retail demand","Perennial bed - 2-3 year productive life","Low pest pressure"],
+        climate:{ideal:"18-28°C",max:"32°C",humidity:"60-80%"},
+        plantation:{units:"~3000-4000 cuttings/tunnel",cost:"₹2-4/cutting",total:"₹8K-15K"},
+        water:"~2000-2800 L/day",nutrients:"₹1800-3000/month",
+        lifecycle:{start:"45-60 days",life:"2-3 year productive bed"},
+        price:"₹100-200/kg wholesale",
+        economics:{monthly:"₹12K-22K/month per tunnel",revenue:"₹1.5-2.5 lakh/year per tunnel",profit:"₹80K-1.5 lakh/year per tunnel"},
+        note:"Plant once, harvest continuously - operationally easy",images:[]},
+      {cat:"premium",emoji:"🌿",name:"Basil (Italian)",kind:"HORECA herb premium",score:7,
+        gradient:"linear-gradient(135deg,#1f5e2c,#5dbb3e)",
+        quick:{growth:"45-60 days first cut",harvest:"Continuous picking",revenue:"₹2-3.5L/year per tunnel"},
+        overview:["Premium HORECA channel","Direct supply to pizza chains","Fresh-pack export potential"],
+        climate:{ideal:"22-30°C",max:"34°C",humidity:"60-75%"},
+        plantation:{units:"~3000-4000 plants/tunnel",cost:"₹3-6/seedling",total:"₹12K-22K"},
+        water:"~2000-2800 L/day",nutrients:"₹2200-4000/month",
+        lifecycle:{start:"45-60 days",life:"6-8 month productive window"},
+        price:"₹300-600/kg wholesale",
+        economics:{monthly:"₹18K-30K/month per tunnel",revenue:"₹2-3.5 lakh/year per tunnel",profit:"₹1-2 lakh/year per tunnel"},
+        note:"Sweet/Genovese variety wins HORECA - lock buyers via samples",images:[]}
+    ];
+
+    const cardsEl = document.getElementById("cards");
+    const tabsEl = document.getElementById("region-tabs");
+    const sectionTitleEl = document.getElementById("section-title");
+    const modal = document.getElementById("profile-modal");
+    const mediaMain = document.getElementById("media-main");
+    const mainImage = document.getElementById("main-image");
+    const mainIcon = document.getElementById("main-icon");
+    const thumbs = document.getElementById("thumbs");
+    const modalName = document.getElementById("modal-name");
+    const modalKind = document.getElementById("modal-kind");
+    const modalKicker = document.getElementById("modal-kicker");
+    const profileTabs = document.getElementById("profile-tabs");
+    const profileContent = document.getElementById("profile-content");
+    const modalFoot = document.getElementById("modal-foot");
+    const imgCounter = document.getElementById("img-counter");
+
+    let activeCrop = null;
+    let activeImages = [];
+    let activeImgIdx = 0;
+    let activeTab = "overview";
+
+    function imagePath(n){return `../posts/data/images/flower_catalog_${String(n).padStart(3,"0")}.jpeg`}
+    function catLabel(c){return c==="leafy"?"Leafy":(c==="vine"?"Vine":"Premium")}
+
+    function updateCounts(){
+      document.getElementById("c-all").textContent = data.length;
+      document.getElementById("c-leafy").textContent = data.filter(d=>d.cat==="leafy").length;
+      document.getElementById("c-vine").textContent = data.filter(d=>d.cat==="vine").length;
+      document.getElementById("c-premium").textContent = data.filter(d=>d.cat==="premium").length;
+    }
+
+    function render(cat="all"){
+      const list = cat==="all" ? data : data.filter(x=>x.cat===cat);
+      sectionTitleEl.textContent = cat==="all" ? "All vegetables" : `${catLabel(cat)} crops`;
+      if (!list.length){cardsEl.innerHTML = `<div class="empty">No crops in this view yet.</div>`;return}
+      cardsEl.innerHTML = list.map(item => {
+        const hasImg = item.images && item.images.length;
+        const cover = hasImg ? imagePath(item.images[0]) : null;
+        const artInner = hasImg
+          ? `<img src="${cover}" alt="${item.name}" loading="lazy">`
+          : `<span class="iconBig">${item.emoji}</span>`;
+        const artStyle = hasImg ? "" : `style="background:${item.gradient || 'linear-gradient(135deg,#2c5e1f,#6ab04c)'}"`;
+        const artClass = hasImg ? "card-art" : "card-art gradient";
+        return `
+          <article class="card" data-name="${item.name.replace(/"/g,'&quot;')}">
+            <div class="${artClass}" ${artStyle}>
+              ${artInner}
+              <span class="cat-tag ${item.cat}"><span class="dot"></span>${catLabel(item.cat)}</span>
+              <span class="score-tag"><span class="star">&#9733;</span>${item.score||"-"}/8</span>
+              <div class="card-name">
+                <div class="kind-mini">${item.kind || "Crop profile"}</div>
+                <h3>${item.name}</h3>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row"><span class="k">Cycle</span><span class="v">${item.quick?.growth || "&mdash;"}</span></div>
+              <div class="row"><span class="k">Harvest</span><span class="v">${item.quick?.harvest || "&mdash;"}</span></div>
+              <div class="rev">
+                <span class="k">Revenue / yr</span>
+                <span class="v">${(item.quick?.revenue || item.economics?.revenue || "—").replace("/year per tunnel","").replace("per tunnel","").trim()}</span>
+              </div>
+              <div class="open-cta"><span>Open full profile</span><span class="arr">&rarr;</span></div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function setImage(i){
+      if (!activeImages.length){
+        mainImage.style.display = "none";
+        mainIcon.style.display = "block";
+        mainIcon.textContent = activeCrop?.emoji || "🌱";
+        imgCounter.style.display = "none";
+        return;
+      }
+      activeImgIdx = (i + activeImages.length) % activeImages.length;
+      mainImage.src = activeImages[activeImgIdx];
+      mainImage.style.display = "block";
+      mainIcon.style.display = "none";
+      imgCounter.style.display = "inline-block";
+      imgCounter.textContent = `${activeImgIdx + 1} / ${activeImages.length}`;
+      const nodes = [...thumbs.querySelectorAll("img")];
+      nodes.forEach((img, idx) => img.classList.toggle("active", idx === activeImgIdx));
+      const activeThumb = nodes[activeImgIdx];
+      if (activeThumb) activeThumb.scrollIntoView({behavior:"smooth", block:"nearest", inline:"center"});
+    }
+
+    function fmtList(arr){return `<ul class="bullets">${arr.map(x=>`<li>${x}</li>`).join("")}</ul>`}
+
+    function renderTab(){
+      if (!activeCrop) return;
+      const c = activeCrop;
+      if (activeTab === "overview"){
+        const lines = [...(c.overview || [])];
+        if (c.lifecycle){
+          lines.push(`<b>Cycle start:</b> ${c.lifecycle.start || "Not provided"}`);
+          lines.push(`<b>Productive duration:</b> ${c.lifecycle.life || "Not provided"}`);
+        }
+        profileContent.innerHTML = fmtList(lines);
+      } else if (activeTab === "agronomy"){
+        profileContent.innerHTML = `
+          <div class="info-grid">
+            <div class="info-row"><span class="lbl">Climate ideal</span><span class="val">${c.climate?.ideal || "Not provided"}</span></div>
+            <div class="info-row"><span class="lbl">Max temperature</span><span class="val">${c.climate?.max || "Not provided"}</span></div>
+            <div class="info-row"><span class="lbl">Humidity</span><span class="val">${c.climate?.humidity || "Not provided"}</span></div>
+            <div class="info-row"><span class="lbl">Plantation</span><span class="val">${c.plantation?.units || "Not provided"}</span></div>
+            <div class="info-row"><span class="lbl">Plant cost</span><span class="val">${c.plantation?.cost || "Not provided"}</span></div>
+            <div class="info-row"><span class="lbl">Total outlay</span><span class="val">${c.plantation?.total || "Not provided"}</span></div>
+            <div class="info-row"><span class="lbl">Water</span><span class="val">${c.water || "Not provided"}</span></div>
+            <div class="info-row"><span class="lbl">Nutrients</span><span class="val">${c.nutrients || "Not provided"}</span></div>
+          </div>`;
+      } else if (activeTab === "economics"){
+        profileContent.innerHTML = `
+          <div class="info-grid">
+            <div class="info-row"><span class="lbl">Price</span><span class="val">${c.price || "Not provided"}</span></div>
+            <div class="info-row"><span class="lbl">Monthly revenue</span><span class="val">${c.economics?.monthly || "Not provided"}</span></div>
+            <div class="info-row"><span class="lbl">Yearly revenue</span><span class="val big">${c.economics?.revenue || "Not provided"}</span></div>
+            <div class="info-row"><span class="lbl">Profit / yr</span><span class="val big">${c.economics?.profit || "Not provided"}</span></div>
+            <div class="info-row"><span class="lbl">Yield basis</span><span class="val">${c.plantation?.units || "Not provided"}</span></div>
+          </div>`;
+      } else {
+        profileContent.innerHTML = fmtList([
+          c.images && c.images.length ? "Images shown above are pulled from the field catalog." : "Visual reference shown - field photo not yet added to catalog.",
+          "Use side arrows or click thumbnails to browse the reference set.",
+          "Want a specific photo added? Flag the crop and we&rsquo;ll capture in the next field round."
+        ]);
+      }
+      modalFoot.textContent = c.note || "Field-level validation recommended before final tunnel planning.";
+    }
+
+    function openProfile(name){
+      const found = data.find(x => x.name === name);
+      if (!found) return;
+      activeCrop = found;
+      modalName.textContent = found.name;
+      modalKind.textContent = found.kind || "";
+      modalKicker.innerHTML = catLabel(found.cat);
+      activeImages = (found.images || []).map(imagePath);
+      thumbs.innerHTML = activeImages.map((src, idx) => `<img src="${src}" alt="${found.name} ref ${idx + 1}" data-i="${idx}">`).join("");
+      if (!activeImages.length){
+        mediaMain.classList.add("gradient");
+        mediaMain.style.background = found.gradient || "linear-gradient(135deg,#2c5e1f,#6ab04c)";
+        thumbs.style.display = "none";
+      } else {
+        mediaMain.classList.remove("gradient");
+        mediaMain.style.background = "";
+        thumbs.style.display = "flex";
+      }
+      setImage(0);
+      activeTab = "overview";
+      [...profileTabs.querySelectorAll(".p-tab")].forEach(btn => btn.classList.toggle("active", btn.dataset.view === "overview"));
+      renderTab();
+      modal.showModal();
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeProfile(){modal.close();document.body.style.overflow = ""}
+
+    tabsEl.addEventListener("click", (e) => {
+      const btn = e.target.closest(".chip");
+      if (!btn) return;
+      [...tabsEl.querySelectorAll(".chip")].forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      render(btn.dataset.cat);
+    });
+
+    cardsEl.addEventListener("click", (e) => {
+      const card = e.target.closest(".card");
+      if (!card) return;
+      openProfile(card.dataset.name);
+    });
+
+    thumbs.addEventListener("click", (e) => {
+      const img = e.target.closest("img");
+      if (!img) return;
+      setImage(Number(img.dataset.i));
+    });
+
+    profileTabs.addEventListener("click", (e) => {
+      const btn = e.target.closest(".p-tab");
+      if (!btn) return;
+      activeTab = btn.dataset.view;
+      [...profileTabs.querySelectorAll(".p-tab")].forEach(b => b.classList.toggle("active", b === btn));
+      renderTab();
+    });
+
+    document.getElementById("img-prev").addEventListener("click", () => setImage(activeImgIdx - 1));
+    document.getElementById("img-next").addEventListener("click", () => setImage(activeImgIdx + 1));
+    document.getElementById("modal-close").addEventListener("click", closeProfile);
+    modal.addEventListener("click", (e) => {if (e.target === modal) closeProfile()});
+    modal.addEventListener("close", () => {document.body.style.overflow = ""});
+    document.addEventListener("keydown", (e) => {
+      if (!modal.open) return;
+      if (e.key === "ArrowLeft") setImage(activeImgIdx - 1);
+      if (e.key === "ArrowRight") setImage(activeImgIdx + 1);
+    });
+
+    updateCounts();
+    render("all");
+  </script>
+</body>
+</html>
