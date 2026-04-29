@@ -146,22 +146,23 @@
 
   <script>
     const crops = [
-      {region:"solan",name:"Carnation",kind:"Core business crop",score:7,growth:"5-6 months",harvest:"Every 7-10 days",life:"2-3 years continuous",yield:"150-200 bundles/month/tunnel",price:"₹200-350/bundle",revenue:"₹4-7 lakh/year/tunnel",tip:"Best planting: Sep-Oct"},
-      {region:"solan",name:"Oriental Lily",kind:"Premium",score:5,growth:"90-120 days",harvest:"2-3 cycles/year",life:"Staggered planting",yield:"~10,000 stems/polyhouse",price:"₹80-150/stem",revenue:"₹8-15 lakh/cycle",tip:"High investment"},
-      {region:"solan",name:"Eustoma (Lisianthus)",kind:"Sensitive premium stem",score:6,growth:"5-6 months",harvest:"Multiple flushes",life:"Protected setup",yield:"Quality-focused",price:"₹15-40/stem",revenue:"₹5-8 lakh/year",tip:"Sensitive crop"},
-      {region:"solan",name:"Gypsophila",kind:"Filler high demand",score:6,growth:"~4 months",harvest:"Continuous",life:"Regular flushes",yield:"Bouquet filler",price:"₹200-400/bunch",revenue:"₹4-8 lakh/year",tip:"Strong bouquet demand"},
-      {region:"solan",name:"Limonium",kind:"Dry flower market",score:6,growth:"4-5 months",harvest:"Continuous",life:"Shelf-stable output",yield:"Dry and fresh channels",price:"₹150-300/bunch",revenue:"₹3-6 lakh/year",tip:"Long shelf life"},
-      {region:"solan",name:"Chrysanthemum",kind:"Festival timing crop",score:6,growth:"3-4 months",harvest:"Seasonal",life:"Cycle based",yield:"Timing sensitive",price:"₹80-200/bundle",revenue:"₹2-4 lakh/cycle",tip:"Festival alignment"},
-      {region:"solan",name:"Gladiolus",kind:"Seasonal stem crop",score:6,growth:"3-4 months",harvest:"2-3 cycles/year",life:"Cycle based",yield:"Market linked",price:"₹5-15/stem",revenue:"₹1-2 lakh/cycle",tip:"Strong in winter windows"},
-      {region:"solan",name:"Ornamental Kale",kind:"Niche winter ornamental",score:6,growth:"2-3 months",harvest:"Winter-focused",life:"Short cycle",yield:"Niche market",price:"₹20-50/plant",revenue:"Niche dependent",tip:"Premium assortment use"},
-      {region:"pune",name:"Rose",kind:"Cut flower strong market",score:5,growth:"4-5 months",harvest:"Daily",life:"3-5 years",yield:"Steady stem flow",price:"₹3-10/stem",revenue:"₹5-10 lakh/year",tip:"Strong city demand"},
-      {region:"pune",name:"Gerbera",kind:"Heat-adapted protected crop",score:6,growth:"~3 months",harvest:"Daily",life:"2-3 years",yield:"Consistent flowering",price:"₹4-10/stem",revenue:"₹5-9 lakh/year",tip:"Reliable florist staple"},
-      {region:"pune",name:"Carnation (with cooling)",kind:"Controlled climate adaptation",score:5,growth:"5-6 months",harvest:"Every 7-10 days",life:"Multi-year with cooling",yield:"Slightly lower than Solan",price:"₹200-350/bundle",revenue:"Cooling dependent",tip:"Cooling quality matters"},
-      {region:"pune",name:"Chrysanthemum",kind:"Easy starter crop",score:6,growth:"3-4 months",harvest:"Seasonal",life:"Event cycles",yield:"Beginner-friendly",price:"₹80-200/bundle",revenue:"Cycle driven",tip:"Easy operationally"},
-      {region:"pune",name:"Sunflower",kind:"Fast cash crop",score:7,growth:"60-70 days",harvest:"Quick turnover",life:"Short repeats",yield:"Rapid cycles",price:"₹5-15/stem",revenue:"Fast cash flow",tip:"Low risk starter"},
-      {region:"pune",name:"Marigold",kind:"Garland market crop",score:6,growth:"60-80 days",harvest:"Festival spikes",life:"Short cycles",yield:"Volume + timing",price:"₹20-60/kg",revenue:"Festival upside",tip:"Event calendar crop"},
-      {region:"pune",name:"Limonium",kind:"Dry + bouquet support",score:6,growth:"4-5 months",harvest:"Continuous",life:"Flexible post-harvest",yield:"Works in Pune",price:"₹150-300/bunch",revenue:"₹3-6 lakh/year range",tip:"Good filler stream"},
-      {region:"pune",name:"Gladiolus (winter)",kind:"Seasonal winter crop",score:6,growth:"3-4 months",harvest:"Winter seasonal",life:"Cycle based",yield:"Good winter response",price:"₹5-15/stem",revenue:"Good winter returns",tip:"Target winter window"}
+      {region:"solan",name:"Carnation",kind:"Core business",score:6,growth:"5-6 months",harvest:"Every 7-10 days",life:"2-3 years",yield:"120-180 bundles/month",price:"₹180-300/bundle (real avg ₹220-260)",revenue:"₹3.5-5.5 lakh/year per tunnel (1200 sq ft)",revenueMonthly:"₹30K-45K/month per tunnel",profit:"₹2-3.2 lakh/year per tunnel",tip:"Earlier ₹4-7L is upper-end only"},
+      {region:"solan",name:"Oriental Lily",kind:"Corrected premium",score:6,growth:"90-120 days",harvest:"Batch cycles",life:"Seasonal cycle based",yield:"~8,000-10,000 stems/tunnel",price:"₹60-120/stem",revenue:"₹4-9 lakh/year per tunnel",profit:"₹1.5-3.5 lakh/year per tunnel",tip:"High bulb cost reduces profit"},
+      {region:"solan",name:"Eustoma (Lisianthus)",kind:"Sensitive premium stem",score:6,growth:"5-6 months",harvest:"Multiple flushes",life:"Protected setup",yield:"Quality-focused",price:"₹12-30/stem",revenue:"₹2.5-5 lakh/year per tunnel",profit:"₹1-2.5 lakh/year per tunnel",tip:"Sensitive crop management"},
+      {region:"solan",name:"Gypsophila",kind:"Filler high demand",score:5,growth:"~4 months",harvest:"Continuous",life:"Regular flushes",yield:"Bouquet filler output",price:"₹150-350/bunch",revenue:"₹3-6 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel",tip:"Strong bouquet demand"},
+      {region:"solan",name:"Limonium",kind:"Dry flower market",score:6,growth:"4-5 months",harvest:"Continuous",life:"Shelf-stable output",yield:"Dry and fresh channels",price:"₹120-250/bunch",revenue:"₹2.5-4.5 lakh/year per tunnel",profit:"₹1-2.5 lakh/year per tunnel",tip:"Long shelf life"},
+      {region:"solan",name:"Chrysanthemum",kind:"Festival timing crop",score:6,growth:"3-4 months",harvest:"Seasonal",life:"Cycle based",yield:"Timing sensitive",price:"₹70-150/bundle",revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹80K-1.8 lakh/year per tunnel",tip:"Best for festival timing"},
+      {region:"solan",name:"Gladiolus",kind:"Seasonal stem crop",score:5,growth:"3-4 months",harvest:"2-3 cycles/year",life:"Cycle based",yield:"Market-linked",price:"₹5-12/stem",revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹80K-1.8 lakh/year per tunnel",tip:"Strong in winter windows"},
+      {region:"solan",name:"Alstroemeria",kind:"New important crop",score:7,growth:"Medium cycle",harvest:"Repeat harvest",life:"2-3 years",yield:"Steady stem flow",price:"₹10-20/stem",revenue:"₹3-5 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel",tip:"Good long-cycle commercial option"},
+      {region:"solan",name:"Ranunculus / Anemone",kind:"Winter premium",score:6,growth:"Winter cycle",harvest:"Seasonal",life:"Single season cycle",yield:"Premium niche output",price:"₹10-30/stem",revenue:"₹1-2 lakh/year per tunnel",profit:"Varies by market timing",tip:"Premium winter positioning"},
+
+      {region:"pune",name:"Rose",kind:"Corrected city market crop",score:5,growth:"4-5 months",harvest:"Daily",life:"3-5 years",yield:"Steady stem flow",price:"₹3-8/stem",revenue:"₹3-6 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel",tip:"Stable demand in city channels"},
+      {region:"pune",name:"Gerbera",kind:"Heat-adapted protected crop",score:5,growth:"~3 months",harvest:"Daily",life:"2-3 years",yield:"Consistent flowering",price:"₹4-8/stem",revenue:"₹3-5 lakh/year per tunnel",profit:"₹1.5-3 lakh/year per tunnel",tip:"Reliable florist staple"},
+      {region:"pune",name:"Carnation (Pune)",kind:"With cooling / lower yield",score:5,growth:"5-6 months",harvest:"Every 7-10 days",life:"Multi-year with cooling",yield:"Lower due to heat",price:"₹180-300/bundle",revenue:"₹3-4.5 lakh/year per tunnel",profit:"₹1.5-2.5 lakh/year per tunnel",tip:"Cooling and heat control are critical"},
+      {region:"pune",name:"Sunflower",kind:"Fast turn crop",score:6,growth:"60-70 days",harvest:"Quick turnover",life:"Short repeats",yield:"Rapid cycles",price:"₹5-12/stem",revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹1-2 lakh/year per tunnel",tip:"Low risk starter"},
+      {region:"pune",name:"Marigold",kind:"Garland market crop",score:5,growth:"60-80 days",harvest:"Festival spikes",life:"Short cycles",yield:"Volume + timing",price:"₹20-50/kg",revenue:"₹1.5-3 lakh/year per tunnel",profit:"₹80K-2 lakh/year per tunnel",tip:"Strong during festival demand"},
+      {region:"pune",name:"Tuberose (Rajnigandha)",kind:"Fragrant cut flower",score:6,growth:"Medium cycle",harvest:"Regular sticks",life:"Multi-pick cycle",yield:"Steady fragrance market",price:"₹2-5/stick",revenue:"₹2-4 lakh/year per tunnel",profit:"₹1-2.5 lakh/year per tunnel",tip:"Good local market movement"},
+      {region:"pune",name:"Jasmine (Mogra)",kind:"Loose flower premium",score:6,growth:"Seasonal to perennial depending setup",harvest:"Frequent picking",life:"Multi-season",yield:"Loose flower output",price:"₹200-500/kg",revenue:"₹2-4 lakh/year per tunnel",profit:"Depends on labor and picking efficiency",tip:"High value in fragrance and puja markets"}
     ];
 
     function imagePath(n){ return `data/images/flower_catalog_${String(n).padStart(3,"0")}.jpeg`; }
@@ -198,7 +199,7 @@
               <h3 class="name">${c.name}</h3>
               <div class="kv"><b>Growth:</b> ${c.growth}</div>
               <div class="kv"><b>Harvest:</b> ${c.harvest}</div>
-              <div class="money">Revenue: ${c.revenue}</div>
+              <div class="money">Revenue (per tunnel): ${c.revenue}</div>
               <button class="open" data-idx="${globalIdx}">Open Flower Profile</button>
             </div>
           </article>
@@ -225,7 +226,9 @@
         <li><b>Lifecycle:</b> ${c.life}</li>
         <li><b>Yield:</b> ${c.yield}</li>
         <li><b>Price:</b> ${c.price}</li>
-        <li><b>Revenue:</b> ${c.revenue}</li>
+        ${c.revenueMonthly ? `<li><b>Revenue (monthly, per tunnel):</b> ${c.revenueMonthly}</li>` : ""}
+        <li><b>Revenue (yearly, per tunnel):</b> ${c.revenue}</li>
+        ${c.profit ? `<li><b>Profit (per tunnel):</b> ${c.profit}</li>` : ""}
         <li><b>Note:</b> ${c.tip}</li>
       `;
       thumbs.innerHTML = activeImages.map((src,idx)=>`<img src="${src}" alt="${c.name} image ${idx+1}" data-i="${idx}">`).join("");
